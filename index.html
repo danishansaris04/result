@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,606 +12,1694 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --p: #7c6dff; --p2: #a594ff; --pd: #4a3ecc;
-            --g: #00d4a8; --g2: #00ffcc;
-            --danger: #ff5470; --warn: #ffb547;
-            --bg: #0b0a14; --s2: #131224; --s3: #1c1a30; --s4: #252342;
-            --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
-            --text: #eeedf5; --muted: rgba(238,237,245,0.42);
-            --r: 22px; --rs: 16px;
+            --p: #7c6dff;
+            --p2: #a594ff;
+            --pd: #4a3ecc;
+            --g: #00d4a8;
+            --g2: #00ffcc;
+            --danger: #ff5470;
+            --warn: #ffb547;
+            --bg: #0b0a14;
+            --s2: #131224;
+            --s3: #1c1a30;
+            --s4: #252342;
+            --border: rgba(255, 255, 255, 0.07);
+            --border2: rgba(255, 255, 255, 0.12);
+            --text: #eeedf5;
+            --muted: rgba(238, 237, 245, 0.42);
+            --r: 22px;
+            --rs: 16px;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        html, body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
-        .syne { font-family: 'Syne', sans-serif; }
-        ::-webkit-scrollbar { width: 3px; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .syne {
+            font-family: 'Syne', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+        }
 
         /* ══ LOGIN ══ */
         #loginScreen {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 24px; position: relative; overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
             background: var(--bg);
         }
+
         .login-orb {
-            position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none;
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
         }
-        .orb1 { width:320px;height:320px;background:radial-gradient(circle,rgba(124,109,255,0.25),transparent);top:-80px;left:-80px;animation:orbFloat 9s ease-in-out infinite; }
-        .orb2 { width:260px;height:260px;background:radial-gradient(circle,rgba(255,84,112,0.18),transparent);bottom:-60px;right:-60px;animation:orbFloat 11s ease-in-out infinite reverse; }
-        .orb3 { width:200px;height:200px;background:radial-gradient(circle,rgba(0,212,168,0.15),transparent);top:50%;left:60%;animation:orbFloat 8s ease-in-out 3s infinite; }
-        @keyframes orbFloat { 0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(18px,-18px) scale(1.04);}66%{transform:translate(-12px,14px) scale(0.96);} }
+
+        .orb1 {
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(124, 109, 255, 0.25), transparent);
+            top: -80px;
+            left: -80px;
+            animation: orbFloat 9s ease-in-out infinite;
+        }
+
+        .orb2 {
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(255, 84, 112, 0.18), transparent);
+            bottom: -60px;
+            right: -60px;
+            animation: orbFloat 11s ease-in-out infinite reverse;
+        }
+
+        .orb3 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 212, 168, 0.15), transparent);
+            top: 50%;
+            left: 60%;
+            animation: orbFloat 8s ease-in-out 3s infinite;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(18px, -18px) scale(1.04);
+            }
+
+            66% {
+                transform: translate(-12px, 14px) scale(0.96);
+            }
+        }
 
         .login-card {
-            width: 100%; max-width: 390px; position: relative; z-index: 2;
-            background: var(--s2); border: 1px solid var(--border2);
-            border-radius: 32px; padding: 38px 30px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,109,255,0.1);
-            animation: cardIn 0.5s cubic-bezier(0.34,1.2,0.64,1) both;
+            width: 100%;
+            max-width: 390px;
+            position: relative;
+            z-index: 2;
+            background: var(--s2);
+            border: 1px solid var(--border2);
+            border-radius: 32px;
+            padding: 38px 30px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(124, 109, 255, 0.1);
+            animation: cardIn 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) both;
         }
-        @keyframes cardIn { from{opacity:0;transform:translateY(28px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);} }
 
-        .login-logo { text-align: center; margin-bottom: 32px; }
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(28px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
         .login-icon {
-            width: 68px; height: 68px; border-radius: 22px; margin: 0 auto 16px;
+            width: 68px;
+            height: 68px;
+            border-radius: 22px;
+            margin: 0 auto 16px;
             background: linear-gradient(135deg, var(--p), var(--g));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px; color: white;
-            box-shadow: 0 10px 30px rgba(124,109,255,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(124, 109, 255, 0.4);
             animation: iconGlow 3s ease-in-out infinite;
         }
-        @keyframes iconGlow { 0%,100%{box-shadow:0 10px 28px rgba(124,109,255,0.4);}50%{box-shadow:0 10px 36px rgba(124,109,255,0.65);} }
-        .login-title { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:var(--text); }
-        .login-sub { font-size:11px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px; }
 
-        .field-wrap { position:relative; margin-bottom:14px; }
-        .field-wrap .fi { position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none; }
-        .login-inp {
-            width:100%; padding:15px 44px 15px 44px;
-            background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1);
-            border-radius:16px; color:var(--text);
-            font-family:'Nunito',sans-serif; font-size:14px; font-weight:600;
-            outline:none; transition:border-color 0.2s, background 0.2s;
+        @keyframes iconGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 10px 28px rgba(124, 109, 255, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 10px 36px rgba(124, 109, 255, 0.65);
+            }
         }
-        .login-inp::placeholder { color:var(--muted); }
-        .login-inp:focus { border-color:rgba(124,109,255,0.6); background:rgba(124,109,255,0.07); box-shadow:0 0 0 4px rgba(124,109,255,0.1); }
-        .eye-btn { position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;padding:4px; }
+
+        .login-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .login-sub {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .field-wrap {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .field-wrap .fi {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+        .login-inp {
+            width: 100%;
+            padding: 15px 44px 15px 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: var(--text);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .login-inp::placeholder {
+            color: var(--muted);
+        }
+
+        .login-inp:focus {
+            border-color: rgba(124, 109, 255, 0.6);
+            background: rgba(124, 109, 255, 0.07);
+            box-shadow: 0 0 0 4px rgba(124, 109, 255, 0.1);
+        }
+
+        .eye-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 14px;
+            padding: 4px;
+        }
 
         .login-error {
-            background:rgba(255,84,112,0.1); border:1px solid rgba(255,84,112,0.25);
-            color:#ff8fab; border-radius:14px; padding:12px 16px;
-            font-size:13px; font-weight:700; margin-bottom:14px;
-            display:none; align-items:center; gap:10px;
+            background: rgba(255, 84, 112, 0.1);
+            border: 1px solid rgba(255, 84, 112, 0.25);
+            color: #ff8fab;
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: none;
+            align-items: center;
+            gap: 10px;
             animation: shake 0.4s ease;
         }
-        .login-error.show { display:flex; }
-        @keyframes shake { 0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-6px);}40%,80%{transform:translateX(6px);} }
+
+        .login-error.show {
+            display: flex;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-6px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(6px);
+            }
+        }
 
         .lockout-box {
-            background:rgba(255,84,112,0.08); border:1px solid rgba(255,84,112,0.2);
-            border-radius:14px; padding:14px 16px; text-align:center;
-            color:#ff8fab; font-size:13px; font-weight:700; margin-bottom:14px; display:none;
+            background: rgba(255, 84, 112, 0.08);
+            border: 1px solid rgba(255, 84, 112, 0.2);
+            border-radius: 14px;
+            padding: 14px 16px;
+            text-align: center;
+            color: #ff8fab;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: none;
         }
-        .lockout-box.show { display:block; }
-        .lockout-num { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; display:block; margin-top:4px; }
+
+        .lockout-box.show {
+            display: block;
+        }
+
+        .lockout-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            display: block;
+            margin-top: 4px;
+        }
 
         .btn-login {
-            width:100%; padding:16px; border:none; border-radius:16px;
-            background:linear-gradient(135deg, var(--p), var(--pd));
-            color:white; font-family:'Nunito',sans-serif;
-            font-size:15px; font-weight:900; cursor:pointer;
-            box-shadow:0 8px 24px rgba(124,109,255,0.35);
-            transition:transform 0.15s, box-shadow 0.15s; position:relative; overflow:hidden;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--p), var(--pd));
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(124, 109, 255, 0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-login:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(124,109,255,0.5); }
-        .btn-login:active { transform:scale(0.98); }
-        .btn-login:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-        .btn-login .spin { display:none; animation:spin 0.7s linear infinite; }
-        .btn-login.loading .btn-text { display:none; }
-        .btn-login.loading .spin { display:inline-block; }
-        @keyframes spin { to{transform:rotate(360deg);} }
 
-        .dots-row { display:flex; gap:6px; justify-content:center; margin-top:16px; }
-        .att-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.1); transition:background 0.3s; }
-        .att-dot.used { background:rgba(255,84,112,0.7); }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(124, 109, 255, 0.5);
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-login .spin {
+            display: none;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .btn-login.loading .btn-text {
+            display: none;
+        }
+
+        .btn-login.loading .spin {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .dots-row {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .att-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s;
+        }
+
+        .att-dot.used {
+            background: rgba(255, 84, 112, 0.7);
+        }
 
         /* ══ ADMIN APP ══ */
-        #adminApp { display:none; }
+        #adminApp {
+            display: none;
+        }
 
         /* ── TOPBAR ── */
         .topbar {
-            position:sticky; top:0; z-index:200;
-            background:rgba(10,9,20,0.97); backdrop-filter:blur(20px);
-            border-bottom:1px solid var(--border);
-            padding:0 16px;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(10, 9, 20, 0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 16px;
         }
-        .topbar-inner { max-width:680px; margin:auto; padding:14px 0; }
-        .topbar-row1 { display:flex; align-items:center; justify-content:space-between; margin-bottom:13px; }
 
-        .logo-chip { display:flex; align-items:center; gap:10px; }
+        .topbar-inner {
+            max-width: 680px;
+            margin: auto;
+            padding: 14px 0;
+        }
+
+        .topbar-row1 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 13px;
+        }
+
+        .logo-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .logo-dot {
-            width:34px; height:34px; border-radius:11px;
-            background:linear-gradient(135deg,var(--p),var(--g));
-            display:flex; align-items:center; justify-content:center;
-            font-size:15px; color:white;
-            box-shadow:0 4px 14px rgba(124,109,255,0.4);
+            width: 34px;
+            height: 34px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, var(--p), var(--g));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: white;
+            box-shadow: 0 4px 14px rgba(124, 109, 255, 0.4);
         }
-        .logo-name { font-family:'Syne',sans-serif; font-size:16px; font-weight:800; }
-        .logo-badge { font-size:9px; font-weight:700; color:var(--muted); letter-spacing:1.4px; text-transform:uppercase; display:block; margin-top:1px; }
 
-        .topbar-actions { display:flex; gap:8px; align-items:center; }
+        .logo-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .logo-badge {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            display: block;
+            margin-top: 1px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
         .tb-btn {
-            padding:9px 16px; border-radius:12px; font-family:'Nunito',sans-serif;
-            font-size:12px; font-weight:800; cursor:pointer; border:1px solid var(--border2);
-            background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.7);
-            display:flex; align-items:center; gap:7px; transition:all 0.2s;
+            padding: 9px 16px;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            border: 1px solid var(--border2);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s;
         }
-        .tb-btn:hover { background:rgba(255,255,255,0.12); color:var(--text); }
-        .tb-btn.danger { background:rgba(255,84,112,0.1); border-color:rgba(255,84,112,0.25); color:rgba(255,130,155,0.9); }
-        .tb-btn.danger:hover { background:rgba(255,84,112,0.2); color:var(--danger); }
 
-        .search-wrap { position:relative; }
-        .search-wrap i { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:13px; }
-        .search-inp {
-            width:100%; padding:12px 16px 12px 40px;
-            background:rgba(255,255,255,0.05); border:1px solid var(--border);
-            border-radius:14px; color:var(--text);
-            font-family:'Nunito',sans-serif; font-size:14px; font-weight:600; outline:none;
-            transition:border-color 0.2s;
+        .tb-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text);
         }
-        .search-inp::placeholder { color:var(--muted); }
-        .search-inp:focus { border-color:rgba(124,109,255,0.5); }
+
+        .tb-btn.danger {
+            background: rgba(255, 84, 112, 0.1);
+            border-color: rgba(255, 84, 112, 0.25);
+            color: rgba(255, 130, 155, 0.9);
+        }
+
+        .tb-btn.danger:hover {
+            background: rgba(255, 84, 112, 0.2);
+            color: var(--danger);
+        }
+
+        .search-wrap {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .search-inp {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-inp::placeholder {
+            color: var(--muted);
+        }
+
+        .search-inp:focus {
+            border-color: rgba(124, 109, 255, 0.5);
+        }
+
+        /* ── VIEW TABS ── */
+        .view-tabs {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 4px;
+        }
+
+        .vtab {
+            flex: 1;
+            padding: 9px 0;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .vtab i {
+            font-size: 11px;
+        }
+
+        .vtab.active {
+            background: rgba(124, 109, 255, 0.25);
+            color: var(--p2);
+        }
 
         /* ── MAIN ── */
-        .main { max-width:680px; margin:auto; padding:20px 14px 80px; }
+        .main {
+            max-width: 680px;
+            margin: auto;
+            padding: 20px 14px 80px;
+        }
 
         /* stats */
-        .stats-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:22px; }
-        .stat-card {
-            background:var(--s3); border:1px solid var(--border); border-radius:20px;
-            padding:16px 12px; text-align:center;
-            animation:fadeUp 0.4s ease both;
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 22px;
         }
-        .stat-num { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; display:block; }
-        .stat-lbl { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.7px; margin-top:3px; display:block; }
 
-        @keyframes fadeUp { from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);} }
+        .stat-card {
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px 12px;
+            text-align: center;
+            animation: fadeUp 0.4s ease both;
+        }
+
+        .stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-lbl {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-top: 3px;
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* section label */
         .sec-label {
-            font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.1em;
-            color:var(--muted); margin-bottom:12px; display:flex; align-items:center; gap:8px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
 
-        .live-dot { width:6px; height:6px; border-radius:50%; background:var(--g); box-shadow:0 0 0 0 rgba(0,212,168,0.4); animation:liveP 1.5s infinite; display:inline-block; }
-        @keyframes liveP { 0%{box-shadow:0 0 0 0 rgba(0,212,168,0.4);}70%{box-shadow:0 0 0 7px rgba(0,212,168,0);}100%{box-shadow:0 0 0 0 rgba(0,212,168,0);} }
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--g);
+            box-shadow: 0 0 0 0 rgba(0, 212, 168, 0.4);
+            animation: liveP 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes liveP {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 168, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 7px rgba(0, 212, 168, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 168, 0);
+            }
+        }
 
         /* today strip */
-        .today-scroll { display:flex; gap:9px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; margin-bottom:24px; }
-        .today-scroll::-webkit-scrollbar { display:none; }
+        .today-scroll {
+            display: flex;
+            gap: 9px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+            margin-bottom: 24px;
+        }
+
+        .today-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
         .today-chip {
-            flex-shrink:0; background:var(--s3); border:1px solid var(--border);
-            border-radius:18px; padding:12px 16px; cursor:pointer; min-width:110px;
-            text-align:center; transition:all 0.2s;
+            flex-shrink: 0;
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 12px 16px;
+            cursor: pointer;
+            min-width: 110px;
+            text-align: center;
+            transition: all 0.2s;
         }
-        .today-chip:hover { border-color:rgba(124,109,255,0.4); transform:translateY(-2px); }
-        .today-chip-name { font-size:12px; font-weight:800; display:block; margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+        .today-chip:hover {
+            border-color: rgba(124, 109, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .today-chip-name {
+            font-size: 12px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .score-pill {
-            display:inline-block; padding:3px 10px; border-radius:20px;
-            font-size:11px; font-weight:900;
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 900;
         }
-        .sp-good { background:rgba(0,212,168,0.15); color:var(--g); border:1px solid rgba(0,212,168,0.3); }
-        .sp-poor { background:rgba(255,84,112,0.15); color:var(--danger); border:1px solid rgba(255,84,112,0.3); }
-        .sp-mid  { background:rgba(255,181,71,0.15);  color:var(--warn);   border:1px solid rgba(255,181,71,0.3);  }
+
+        .sp-good {
+            background: rgba(0, 212, 168, 0.15);
+            color: var(--g);
+            border: 1px solid rgba(0, 212, 168, 0.3);
+        }
+
+        .sp-poor {
+            background: rgba(255, 84, 112, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(255, 84, 112, 0.3);
+        }
+
+        .sp-mid {
+            background: rgba(255, 181, 71, 0.15);
+            color: var(--warn);
+            border: 1px solid rgba(255, 181, 71, 0.3);
+        }
 
         /* student list */
         .count-chip {
-            background:var(--s3); color:var(--muted); font-size:10px; font-weight:800;
-            padding:3px 10px; border-radius:8px;
+            background: var(--s3);
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 8px;
         }
-        .student-item {
-            background:var(--s3); border:1px solid var(--border); border-radius:20px;
-            padding:15px 16px; margin-bottom:10px; cursor:pointer;
-            display:flex; align-items:center; gap:13px;
-            transition:border-color 0.2s, transform 0.15s;
-        }
-        .student-item:hover { border-color:rgba(124,109,255,0.35); transform:translateX(3px); }
-        .student-item:active { transform:scale(0.98); }
-        .s-rank { font-size:11px; font-weight:800; color:var(--muted); width:22px; text-align:center; flex-shrink:0; }
-        .avatar {
-            width:44px; height:44px; border-radius:14px; flex-shrink:0;
-            display:flex; align-items:center; justify-content:center;
-            font-family:'Syne',sans-serif; font-size:17px; font-weight:800; color:white;
-        }
-        .av0{background:linear-gradient(135deg,#7c6dff,#a78bfa);}
-        .av1{background:linear-gradient(135deg,#ff5470,#f472b6);}
-        .av2{background:linear-gradient(135deg,#00d4a8,#34d399);}
-        .av3{background:linear-gradient(135deg,#ffb547,#fbbf24);}
-        .av4{background:linear-gradient(135deg,#3b82f6,#60a5fa);}
-        .av5{background:linear-gradient(135deg,#ec4899,#f43f5e);}
-        .av6{background:linear-gradient(135deg,#8b5cf6,#7c3aed);}
-        .av7{background:linear-gradient(135deg,#14b8a6,#0d9488);}
 
-        .s-info { flex:1; min-width:0; }
-        .s-name { font-size:15px; font-weight:800; display:block; }
-        .s-meta { font-size:12px; color:var(--muted); font-weight:600; margin-top:3px; display:block; }
-        .s-arrow { color:var(--muted); font-size:13px; }
+        .student-item {
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 15px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+
+        .student-item:hover {
+            border-color: rgba(124, 109, 255, 0.35);
+            transform: translateX(3px);
+        }
+
+        .student-item:active {
+            transform: scale(0.98);
+        }
+
+        .s-rank {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--muted);
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .av0 {
+            background: linear-gradient(135deg, #7c6dff, #a78bfa);
+        }
+
+        .av1 {
+            background: linear-gradient(135deg, #ff5470, #f472b6);
+        }
+
+        .av2 {
+            background: linear-gradient(135deg, #00d4a8, #34d399);
+        }
+
+        .av3 {
+            background: linear-gradient(135deg, #ffb547, #fbbf24);
+        }
+
+        .av4 {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+
+        .av5 {
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+        }
+
+        .av6 {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .av7 {
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+        }
+
+        .s-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .s-name {
+            font-size: 15px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .s-meta {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-top: 3px;
+            display: block;
+        }
+
+        .s-arrow {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ── CHAPTER VIEW ── */
+        .chapter-card {
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .chapter-card:hover {
+            border-color: rgba(124, 109, 255, 0.25);
+        }
+
+        .chapter-header {
+            padding: 15px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            transition: background 0.2s;
+        }
+
+        .chapter-header:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .ch-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+
+        .chi0 {
+            background: linear-gradient(135deg, #7c6dff, #a78bfa);
+        }
+
+        .chi1 {
+            background: linear-gradient(135deg, #ff5470, #f472b6);
+        }
+
+        .chi2 {
+            background: linear-gradient(135deg, #00d4a8, #34d399);
+        }
+
+        .chi3 {
+            background: linear-gradient(135deg, #ffb547, #fbbf24);
+        }
+
+        .chi4 {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+
+        .chi5 {
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+        }
+
+        .chi6 {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .chi7 {
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+        }
+
+        .ch-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ch-name {
+            font-size: 14px;
+            font-weight: 800;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ch-meta {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-top: 3px;
+            display: block;
+        }
+
+        .ch-toggle {
+            color: var(--muted);
+            font-size: 13px;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .ch-toggle.open {
+            transform: rotate(90deg);
+        }
+
+        .chapter-students {
+            display: none;
+            border-top: 1px solid var(--border);
+            padding: 8px 16px 12px;
+        }
+
+        .chapter-students.open {
+            display: block;
+        }
+
+        .ch-student-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .ch-student-row:last-child {
+            border-bottom: none;
+        }
+
+        .ch-student-row:hover {
+            transform: translateX(4px);
+        }
+
+        .ch-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .ch-sname {
+            font-size: 13px;
+            font-weight: 800;
+            flex: 1;
+        }
+
+        .ch-smeta {
+            font-size: 10px;
+            color: var(--muted);
+            font-weight: 600;
+            display: block;
+            margin-top: 1px;
+        }
 
         /* ── MODAL (full screen) ── */
-        .modal { display:none; position:fixed; inset:0; background:var(--bg); z-index:500; flex-direction:column; }
-        .modal.open { display:flex; animation:slideUp 0.3s ease; }
-        @keyframes slideUp { from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;} }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 500;
+            flex-direction: column;
+        }
+
+        .modal.open {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(24px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
         .modal-nav {
-            background:rgba(10,9,20,0.97); backdrop-filter:blur(16px);
-            border-bottom:1px solid var(--border);
-            padding:14px 16px; display:flex; align-items:center; gap:12px;
-            position:sticky; top:0; z-index:10; flex-shrink:0;
+            background: rgba(10, 9, 20, 0.97);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            flex-shrink: 0;
         }
-        .btn-back {
-            width:38px; height:38px; border-radius:13px;
-            background:rgba(255,255,255,0.07); border:1px solid var(--border);
-            cursor:pointer; display:flex; align-items:center; justify-content:center;
-            color:var(--text); font-size:14px; transition:background 0.2s;
-        }
-        .btn-back:hover { background:rgba(255,255,255,0.13); }
-        .modal-title-text { font-family:'Syne',sans-serif; font-size:17px; font-weight:800; flex:1; }
 
-        .modal-body { flex:1; overflow-y:auto; padding:18px 14px; max-width:680px; width:100%; margin:auto; }
+        .btn-back {
+            width: 38px;
+            height: 38px;
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.13);
+        }
+
+        .modal-title-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 14px;
+            max-width: 680px;
+            width: 100%;
+            margin: auto;
+        }
 
         /* history cards */
         .hist-card {
-            background:var(--s3); border:1px solid var(--border); border-radius:20px;
-            padding:15px 16px; margin-bottom:10px; cursor:pointer;
-            display:flex; align-items:center; gap:13px;
-            transition:border-color 0.2s, transform 0.15s;
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 15px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            transition: border-color 0.2s, transform 0.15s;
         }
-        .hist-card:hover { border-color:rgba(124,109,255,0.35); transform:translateX(3px); }
+
+        .hist-card:hover {
+            border-color: rgba(124, 109, 255, 0.35);
+            transform: translateX(3px);
+        }
+
         .h-icon {
-            width:42px; height:42px; border-radius:13px;
-            background:rgba(124,109,255,0.12); border:1px solid rgba(124,109,255,0.2);
-            display:flex; align-items:center; justify-content:center;
-            color:var(--p2); font-size:16px; flex-shrink:0;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: rgba(124, 109, 255, 0.12);
+            border: 1px solid rgba(124, 109, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--p2);
+            font-size: 16px;
+            flex-shrink: 0;
         }
-        .h-info { flex:1; min-width:0; }
-        .h-chapter { font-size:14px; font-weight:800; display:block; }
-        .h-ts { font-size:11px; color:var(--muted); font-weight:600; display:block; margin-top:2px; }
+
+        .h-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .h-chapter {
+            font-size: 14px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .h-ts {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            display: block;
+            margin-top: 2px;
+        }
 
         /* result hero */
         .result-hero {
-            background:var(--s2); border:1px solid var(--border2);
-            border-radius:24px; padding:28px 22px; text-align:center;
-            margin-bottom:16px; position:relative; overflow:hidden;
+            background: var(--s2);
+            border: 1px solid var(--border2);
+            border-radius: 24px;
+            padding: 28px 22px;
+            text-align: center;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
         }
+
         .result-hero::before {
-            content:''; position:absolute; top:-40px; right:-40px;
-            width:130px; height:130px; border-radius:50%;
-            background:rgba(124,109,255,0.12);
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(124, 109, 255, 0.12);
         }
-        .big-score { font-family:'Syne',sans-serif; font-size:56px; font-weight:800; line-height:1; }
-        .big-score.good { color:var(--g); }
-        .big-score.mid  { color:var(--warn); }
-        .big-score.poor { color:var(--danger); }
-        .hero-name { font-size:16px; font-weight:800; margin-top:8px; }
-        .hero-meta { font-size:12px; color:var(--muted); font-weight:600; margin-top:4px; }
+
+        .big-score {
+            font-family: 'Syne', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .big-score.good {
+            color: var(--g);
+        }
+
+        .big-score.mid {
+            color: var(--warn);
+        }
+
+        .big-score.poor {
+            color: var(--danger);
+        }
+
+        .hero-name {
+            font-size: 16px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        .hero-meta {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-top: 4px;
+        }
 
         /* pills */
-        .pills-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:16px; }
-        .pill {
-            background:var(--s3); border:1px solid var(--border); border-radius:16px;
-            padding:14px 10px; text-align:center;
+        .pills-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
         }
-        .pill-num { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; display:block; }
-        .pill-lbl { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.6px; display:block; margin-top:3px; }
+
+        .pill {
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .pill-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .pill-lbl {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: block;
+            margin-top: 3px;
+        }
 
         /* filter tabs */
         .filter-strip {
-            display:flex; gap:7px; overflow-x:auto; scrollbar-width:none;
-            margin-bottom:16px; padding-bottom:2px;
+            display: flex;
+            gap: 7px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            margin-bottom: 16px;
+            padding-bottom: 2px;
         }
-        .filter-strip::-webkit-scrollbar { display:none; }
+
+        .filter-strip::-webkit-scrollbar {
+            display: none;
+        }
+
         .ftab {
-            flex-shrink:0; padding:9px 16px; border-radius:12px;
-            font-size:12px; font-weight:800; cursor:pointer;
-            background:var(--s3); border:1px solid var(--border); color:var(--muted);
-            display:flex; align-items:center; gap:6px; transition:all 0.2s;
-            font-family:'Nunito',sans-serif;
+            flex-shrink: 0;
+            padding: 9px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            background: var(--s3);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-family: 'Nunito', sans-serif;
         }
-        .ftab .num { font-size:11px; opacity:0.6; }
-        .ftab.active { background:var(--p); border-color:var(--p); color:#fff; }
+
+        .ftab .num {
+            font-size: 11px;
+            opacity: 0.6;
+        }
+
+        .ftab.active {
+            background: var(--p);
+            border-color: var(--p);
+            color: #fff;
+        }
 
         /* q card */
         .q-card {
-            background:var(--s3); border:1px solid var(--border);
-            border-radius:18px; padding:18px; margin-bottom:11px;
-            border-left:4px solid transparent; position:relative;
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 11px;
+            border-left: 4px solid transparent;
+            position: relative;
         }
-        .q-card[data-type="correct"] { border-left-color:var(--g); }
-        .q-card[data-type="wrong"]   { border-left-color:var(--danger); }
-        .q-card[data-type="skipped"] { border-left-color:var(--warn); }
-        .q-num { font-size:10px; font-weight:800; color:var(--muted); margin-bottom:7px; display:block; letter-spacing:0.06em; }
-        .q-text { font-size:14px; font-weight:700; line-height:1.55; color:var(--text); word-break:break-word; }
-        .q-img { width:100%; max-height:200px; object-fit:contain; border-radius:13px; margin:10px 0; background:rgba(0,0,0,0.3); border:1px solid var(--border); }
 
-        .ans-row { margin-top:12px; display:flex; flex-direction:column; gap:7px; }
+        .q-card[data-type="correct"] {
+            border-left-color: var(--g);
+        }
+
+        .q-card[data-type="wrong"] {
+            border-left-color: var(--danger);
+        }
+
+        .q-card[data-type="skipped"] {
+            border-left-color: var(--warn);
+        }
+
+        .q-num {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--muted);
+            margin-bottom: 7px;
+            display: block;
+            letter-spacing: 0.06em;
+        }
+
+        .q-text {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.55;
+            color: var(--text);
+            word-break: break-word;
+        }
+
+        .q-img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 13px;
+            margin: 10px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        .ans-row {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
         .ans-item {
-            padding:10px 13px; border-radius:12px; font-size:13px; font-weight:700;
-            display:flex; align-items:center; gap:8px;
+            padding: 10px 13px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .ans-student { background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--muted); }
-        .ans-correct { background:rgba(0,212,168,0.1); border:1px solid rgba(0,212,168,0.25); color:var(--g); }
-        .ans-wrong   { background:rgba(255,84,112,0.1);  border:1px solid rgba(255,84,112,0.25);  color:var(--danger); }
 
-        .empty-state { text-align:center; padding:50px 20px; }
-        .empty-icon { font-size:40px; margin-bottom:12px; display:block; }
-        .empty-text { font-size:14px; color:var(--muted); font-weight:600; }
+        .ans-student {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .ans-correct {
+            background: rgba(0, 212, 168, 0.1);
+            border: 1px solid rgba(0, 212, 168, 0.25);
+            color: var(--g);
+        }
+
+        .ans-wrong {
+            background: rgba(255, 84, 112, 0.1);
+            border: 1px solid rgba(255, 84, 112, 0.25);
+            color: var(--danger);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .empty-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 600;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- ══ LOGIN ══ -->
-<div id="loginScreen">
-    <div class="login-orb orb1"></div>
-    <div class="login-orb orb2"></div>
-    <div class="login-orb orb3"></div>
-    <div class="login-card">
-        <div class="login-logo">
-            <div class="login-icon"><i class="fa-solid fa-brain"></i></div>
-            <div class="login-title syne">CCMC Admin</div>
-            <span class="login-sub">Master Intelligence</span>
+    <!-- ══ LOGIN ══ -->
+    <div id="loginScreen">
+        <div class="login-orb orb1"></div>
+        <div class="login-orb orb2"></div>
+        <div class="login-orb orb3"></div>
+        <div class="login-card">
+            <div class="login-logo">
+                <div class="login-icon"><i class="fa-solid fa-brain"></i></div>
+                <div class="login-title syne">CCMC Admin</div>
+                <span class="login-sub">Master Intelligence</span>
+            </div>
+            <div class="field-wrap">
+                <i class="fa-solid fa-envelope fi"></i>
+                <input type="email" id="loginUser" class="login-inp" placeholder="Email Address" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()">
+            </div>
+            <div class="field-wrap">
+                <i class="fa-solid fa-lock fi"></i>
+                <input type="password" id="loginPass" class="login-inp" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+                <button class="eye-btn" onclick="togglePass()" type="button"><i class="fa-solid fa-eye" id="eyeIcon"></i></button>
+            </div>
+            <div class="login-error" id="loginError">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="loginErrMsg">Email ya password galat hai!</span>
+            </div>
+            <div class="lockout-box" id="lockoutBox">
+                🔒 Bahut zyada attempts! Dobara koshish karein:
+                <span class="lockout-num" id="lockoutTimer">0:30</span>
+            </div>
+            <button class="btn-login" id="loginBtn" onclick="doLogin()">
+                <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Login Karein</span>
+                <i class="fa-solid fa-circle-notch spin"></i>
+            </button>
+            <div class="dots-row" id="attemptsBar">
+                <div class="att-dot" id="d1"></div>
+                <div class="att-dot" id="d2"></div>
+                <div class="att-dot" id="d3"></div>
+                <div class="att-dot" id="d4"></div>
+                <div class="att-dot" id="d5"></div>
+            </div>
+            <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:0.5px;">CCMC &bull; Admin Portal &bull; v3.0</div>
         </div>
-        <div class="field-wrap">
-            <i class="fa-solid fa-envelope fi"></i>
-            <input type="email" id="loginUser" class="login-inp" placeholder="Email Address" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()">
-        </div>
-        <div class="field-wrap">
-            <i class="fa-solid fa-lock fi"></i>
-            <input type="password" id="loginPass" class="login-inp" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-            <button class="eye-btn" onclick="togglePass()" type="button"><i class="fa-solid fa-eye" id="eyeIcon"></i></button>
-        </div>
-        <div class="login-error" id="loginError">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            <span id="loginErrMsg">Email ya password galat hai!</span>
-        </div>
-        <div class="lockout-box" id="lockoutBox">
-            🔒 Bahut zyada attempts! Dobara koshish karein:
-            <span class="lockout-num" id="lockoutTimer">0:30</span>
-        </div>
-        <button class="btn-login" id="loginBtn" onclick="doLogin()">
-            <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Login Karein</span>
-            <i class="fa-solid fa-circle-notch spin"></i>
-        </button>
-        <div class="dots-row" id="attemptsBar">
-            <div class="att-dot" id="d1"></div><div class="att-dot" id="d2"></div>
-            <div class="att-dot" id="d3"></div><div class="att-dot" id="d4"></div>
-            <div class="att-dot" id="d5"></div>
-        </div>
-        <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:0.5px;">CCMC &bull; Admin Portal &bull; v3.0</div>
     </div>
-</div>
 
-<!-- ══ ADMIN APP ══ -->
-<div id="adminApp">
+    <!-- ══ ADMIN APP ══ -->
+    <div id="adminApp">
 
-    <div class="topbar">
-        <div class="topbar-inner">
-            <div class="topbar-row1">
-                <div class="logo-chip">
-                    <div class="logo-dot"><i class="fa-solid fa-brain"></i></div>
-                    <div>
-                        <div class="logo-name syne">CCMC Admin</div>
-                        <span class="logo-badge">Master Intelligence</span>
+        <div class="topbar">
+            <div class="topbar-inner">
+                <div class="topbar-row1">
+                    <div class="logo-chip">
+                        <div class="logo-dot"><i class="fa-solid fa-brain"></i></div>
+                        <div>
+                            <div class="logo-name syne">CCMC Admin</div>
+                            <span class="logo-badge">Master Intelligence</span>
+                        </div>
+                    </div>
+                    <div class="topbar-actions">
+                        <button class="tb-btn" onclick="smartBack()"><i class="fa-solid fa-house"></i> Home</button>
+                        <button class="tb-btn danger" onclick="doLogout()" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                 </div>
-                <div class="topbar-actions">
-                    <button class="tb-btn" onclick="smartBack()"><i class="fa-solid fa-house"></i> Home</button>
-                    <button class="tb-btn danger" onclick="doLogout()" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                <div class="search-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="findStudent" class="search-inp" placeholder="Student dhundo…" onkeyup="doSearch()">
+                </div>
+                <!-- VIEW TABS -->
+                <div class="view-tabs">
+                    <button class="vtab active" id="tab-students" onclick="switchView('students')">
+                        <i class="fa-solid fa-users"></i> Students
+                    </button>
+                    <button class="vtab" id="tab-chapters" onclick="switchView('chapters')">
+                        <i class="fa-solid fa-book-open"></i> Chapters
+                    </button>
                 </div>
             </div>
-            <div class="search-wrap">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="findStudent" class="search-inp" placeholder="Student dhundo…" onkeyup="doSearch()">
+        </div>
+
+        <div class="main">
+            <!-- stats -->
+            <div class="stats-row">
+                <div class="stat-card" style="animation-delay:0s">
+                    <span class="stat-num" id="totalStudents" style="color:var(--p2)">—</span>
+                    <span class="stat-lbl">Students</span>
+                </div>
+                <div class="stat-card" style="animation-delay:0.05s">
+                    <span class="stat-num" id="totalTests" style="color:var(--g)">—</span>
+                    <span class="stat-lbl">Tests</span>
+                </div>
+                <div class="stat-card" style="animation-delay:0.1s">
+                    <span class="stat-num" id="avgScore" style="color:var(--warn)">—</span>
+                    <span class="stat-lbl">Avg %</span>
+                </div>
+            </div>
+
+            <!-- STUDENTS VIEW -->
+            <div id="view-students">
+                <!-- today active -->
+                <div id="todaySection"></div>
+                <!-- all students -->
+                <div class="sec-label">
+                    <i class="fa-solid fa-users"></i> Sabhi Students
+                    <span class="count-chip" id="countChip">0</span>
+                </div>
+                <div id="studentList"></div>
+            </div>
+
+            <!-- CHAPTERS VIEW -->
+            <div id="view-chapters" style="display:none;">
+                <div class="sec-label">
+                    <i class="fa-solid fa-book-open"></i> Chapter Wise
+                    <span class="count-chip" id="chapterCountChip">0</span>
+                </div>
+                <div id="chapterList"></div>
             </div>
         </div>
+
+        <!-- MODAL -->
+        <div id="viewModal" class="modal">
+            <div class="modal-nav">
+                <button class="btn-back" id="modalBackBtn"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="modal-title-text" id="modalTitle">Details</div>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+
     </div>
 
-    <div class="main">
-        <!-- stats -->
-        <div class="stats-row">
-            <div class="stat-card" style="animation-delay:0s">
-                <span class="stat-num" id="totalStudents" style="color:var(--p2)">—</span>
-                <span class="stat-lbl">Students</span>
-            </div>
-            <div class="stat-card" style="animation-delay:0.05s">
-                <span class="stat-num" id="totalTests" style="color:var(--g)">—</span>
-                <span class="stat-lbl">Tests</span>
-            </div>
-            <div class="stat-card" style="animation-delay:0.1s">
-                <span class="stat-num" id="avgScore" style="color:var(--warn)">—</span>
-                <span class="stat-lbl">Avg %</span>
-            </div>
-        </div>
+    <script>
+        /* ══ FIREBASE ══ */
+        const firebaseConfig = {
+            apiKey: "AIzaSyAX40dcdJ96TOhBgqa4bbIiOwLlUShnUI8",
+            databaseURL: "https://ccmc-90ba3-default-rtdb.firebaseio.com",
+            projectId: "ccmc-90ba3"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
-        <!-- today active -->
-        <div id="todaySection"></div>
+        const MAX_ATTEMPTS = 5,
+            LOCKOUT_SEC = 30;
+        let failedAttempts = 0,
+            lockoutInterval = null;
 
-        <!-- all students -->
-        <div class="sec-label">
-            <i class="fa-solid fa-users"></i> Sabhi Students
-            <span class="count-chip" id="countChip">0</span>
-        </div>
-        <div id="studentList"></div>
-    </div>
-
-    <!-- MODAL -->
-    <div id="viewModal" class="modal">
-        <div class="modal-nav">
-            <button class="btn-back" id="modalBackBtn"><i class="fa-solid fa-chevron-left"></i></button>
-            <div class="modal-title-text" id="modalTitle">Details</div>
-        </div>
-        <div class="modal-body" id="modalBody"></div>
-    </div>
-
-</div>
-
-<script>
-    /* ══ FIREBASE ══ */
-    const firebaseConfig = {
-        apiKey: "AIzaSyAX40dcdJ96TOhBgqa4bbIiOwLlUShnUI8",
-        databaseURL: "https://ccmc-90ba3-default-rtdb.firebaseio.com",
-        projectId: "ccmc-90ba3"
-    };
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-
-    const MAX_ATTEMPTS = 5, LOCKOUT_SEC = 30;
-    let failedAttempts = 0, lockoutInterval = null;
-
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) showApp();
-    });
-
-    function togglePass() {
-        const inp = document.getElementById('loginPass');
-        const ic  = document.getElementById('eyeIcon');
-        inp.type = inp.type === 'password' ? 'text' : 'password';
-        ic.className = inp.type === 'password' ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
-    }
-
-    function doLogin() {
-        if (lockoutInterval) return;
-        const btn   = document.getElementById('loginBtn');
-        const email = document.getElementById('loginUser').value.trim();
-        const pass  = document.getElementById('loginPass').value;
-        if (!email || !pass) { showErr('Email aur password dono bharein!'); return; }
-        btn.classList.add('loading'); btn.disabled = true;
-        firebase.auth().signInWithEmailAndPassword(email, pass)
-            .then(() => { btn.classList.remove('loading'); btn.disabled = false; })
-            .catch(err => {
-                btn.classList.remove('loading'); btn.disabled = false;
-                failedAttempts++;
-                updateDots();
-                const msgs = {
-                    'auth/user-not-found': 'Yeh email registered nahi hai!',
-                    'auth/wrong-password': 'Password galat hai!',
-                    'auth/invalid-email': 'Email format sahi nahi hai!',
-                    'auth/too-many-requests': 'Bahut zyada attempts! Thodi der baad try karein.',
-                    'auth/invalid-credential': 'Email ya password galat hai!'
-                };
-                const msg = msgs[err.code] || 'Email ya password galat hai!';
-                if (failedAttempts >= MAX_ATTEMPTS) startLockout();
-                else showErr(msg + ` (${MAX_ATTEMPTS-failedAttempts} chance baaki)`);
-            });
-    }
-
-    function showErr(msg) {
-        const el = document.getElementById('loginError');
-        document.getElementById('loginErrMsg').textContent = msg;
-        el.className = 'login-error show';
-        el.style.animation = 'none';
-        requestAnimationFrame(() => { el.style.animation = ''; });
-    }
-
-    function updateDots() {
-        for (let i = 1; i <= MAX_ATTEMPTS; i++) {
-            const d = document.getElementById('d'+i);
-            if (d) d.className = 'att-dot' + (i <= failedAttempts ? ' used' : '');
-        }
-    }
-
-    function startLockout() {
-        let sec = LOCKOUT_SEC;
-        const lb = document.getElementById('lockoutBox');
-        const lt = document.getElementById('lockoutTimer');
-        const btn = document.getElementById('loginBtn');
-        document.getElementById('loginError').className = 'login-error';
-        lb.className = 'lockout-box show';
-        btn.disabled = true;
-        lockoutInterval = setInterval(() => {
-            sec--;
-            lt.textContent = `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;
-            if (sec <= 0) {
-                clearInterval(lockoutInterval); lockoutInterval = null;
-                lb.className = 'lockout-box'; btn.disabled = false;
-                failedAttempts = 0; updateDots();
-            }
-        }, 1000);
-    }
-
-    function showApp() {
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('adminApp').style.display = 'block';
-        initApp();
-    }
-
-    function doLogout() {
-        if (!confirm('Logout karna chahte hain?')) return;
-        firebase.auth().signOut().then(() => location.reload());
-    }
-
-    function smartBack() {
-        if (window.history.length > 1) window.history.back();
-        else window.location.href = "https://danishansaris04.github.io/ccmc";
-    }
-
-    /* ══ DATA ══ */
-    let dataMap = {}, allAttempts = [];
-
-    function initApp() {
-        const db = firebase.database();
-        db.ref('user_attempts').on('value', snap => {
-            const raw = snap.val() || {};
-            dataMap = {}; allAttempts = [];
-            Object.keys(raw).forEach(id => {
-                const r = raw[id];
-                if (!r || !r.user) return;
-                allAttempts.push({ id, ...r });
-                if (!dataMap[r.user]) dataMap[r.user] = [];
-                dataMap[r.user].push({ id, ...r });
-            });
-            updateStats();
-            doSearch();
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) showApp();
         });
-    }
 
-    function isToday(ts) {
-        if (!ts) return false;
-        const now = new Date();
-        const clean = (ts + '').split(',')[0].trim();
-        const d = now.getDate(), m = now.getMonth()+1, y = now.getFullYear();
-        return [
-            `${d}/${m}/${y}`,
-            `${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`,
-            `${m}/${d}/${y}`
-        ].includes(clean);
-    }
+        function togglePass() {
+            const inp = document.getElementById('loginPass');
+            const ic = document.getElementById('eyeIcon');
+            inp.type = inp.type === 'password' ? 'text' : 'password';
+            ic.className = inp.type === 'password' ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
+        }
 
-    function updateStats() {
-        const names = Object.keys(dataMap);
-        document.getElementById('totalStudents').textContent = names.length;
-        document.getElementById('totalTests').textContent = allAttempts.length;
-        const scores = allAttempts.map(a => parseFloat(a.score)).filter(n => !isNaN(n));
-        const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
-        document.getElementById('avgScore').textContent = avg + '%';
-    }
+        function doLogin() {
+            if (lockoutInterval) return;
+            const btn = document.getElementById('loginBtn');
+            const email = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value;
+            if (!email || !pass) {
+                showErr('Email aur password dono bharein!');
+                return;
+            }
+            btn.classList.add('loading');
+            btn.disabled = true;
+            firebase.auth().signInWithEmailAndPassword(email, pass)
+                .then(() => {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                })
+                .catch(err => {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                    failedAttempts++;
+                    updateDots();
+                    const msgs = {
+                        'auth/user-not-found': 'Yeh email registered nahi hai!',
+                        'auth/wrong-password': 'Password galat hai!',
+                        'auth/invalid-email': 'Email format sahi nahi hai!',
+                        'auth/too-many-requests': 'Bahut zyada attempts! Thodi der baad try karein.',
+                        'auth/invalid-credential': 'Email ya password galat hai!'
+                    };
+                    const msg = msgs[err.code] || 'Email ya password galat hai!';
+                    if (failedAttempts >= MAX_ATTEMPTS) startLockout();
+                    else showErr(msg + ` (${MAX_ATTEMPTS-failedAttempts} chance baaki)`);
+                });
+        }
 
-    function doSearch() {
-        const val = document.getElementById('findStudent').value.toLowerCase().trim();
-        const todayList = allAttempts.filter(a => isToday(a.timestamp) && a.user.toLowerCase().includes(val));
-        const names = Object.keys(dataMap).filter(n => n.toLowerCase().includes(val)).sort();
-        renderPage(todayList, names);
-    }
+        function showErr(msg) {
+            const el = document.getElementById('loginError');
+            document.getElementById('loginErrMsg').textContent = msg;
+            el.className = 'login-error show';
+            el.style.animation = 'none';
+            requestAnimationFrame(() => {
+                el.style.animation = '';
+            });
+        }
 
-    function avClass(name) {
-        return 'av' + (name.charCodeAt(0) % 8);
-    }
+        function updateDots() {
+            for (let i = 1; i <= MAX_ATTEMPTS; i++) {
+                const d = document.getElementById('d' + i);
+                if (d) d.className = 'att-dot' + (i <= failedAttempts ? ' used' : '');
+            }
+        }
 
-    function scoreClass(s) {
-        return s >= 70 ? 'sp-good' : s >= 40 ? 'sp-mid' : 'sp-poor';
-    }
+        function startLockout() {
+            let sec = LOCKOUT_SEC;
+            const lb = document.getElementById('lockoutBox');
+            const lt = document.getElementById('lockoutTimer');
+            const btn = document.getElementById('loginBtn');
+            document.getElementById('loginError').className = 'login-error';
+            lb.className = 'lockout-box show';
+            btn.disabled = true;
+            lockoutInterval = setInterval(() => {
+                sec--;
+                lt.textContent = `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;
+                if (sec <= 0) {
+                    clearInterval(lockoutInterval);
+                    lockoutInterval = null;
+                    lb.className = 'lockout-box';
+                    btn.disabled = false;
+                    failedAttempts = 0;
+                    updateDots();
+                }
+            }, 1000);
+        }
 
-    function renderPage(todayList, names) {
-        /* today section */
-        const ts = document.getElementById('todaySection');
-        if (todayList.length > 0) {
-            ts.innerHTML = `
+        function showApp() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminApp').style.display = 'block';
+            initApp();
+        }
+
+        function doLogout() {
+            if (!confirm('Logout karna chahte hain?')) return;
+            firebase.auth().signOut().then(() => location.reload());
+        }
+
+        function smartBack() {
+            if (window.history.length > 1) window.history.back();
+            else window.location.href = "https://danishansaris04.github.io/ccmc";
+        }
+
+        /* ══ DATA ══ */
+        let dataMap = {},
+            chapterMap = {},
+            allAttempts = [];
+        let currentView = 'students';
+
+        function initApp() {
+            const db = firebase.database();
+            db.ref('user_attempts').on('value', snap => {
+                const raw = snap.val() || {};
+                dataMap = {};
+                chapterMap = {};
+                allAttempts = [];
+                Object.keys(raw).forEach(id => {
+                    const r = raw[id];
+                    if (!r || !r.user) return;
+                    allAttempts.push({
+                        id,
+                        ...r
+                    });
+                    // student map
+                    if (!dataMap[r.user]) dataMap[r.user] = [];
+                    dataMap[r.user].push({
+                        id,
+                        ...r
+                    });
+                    // chapter map
+                    const ch = (r.chapter || 'Unknown Chapter').trim();
+                    if (!chapterMap[ch]) chapterMap[ch] = [];
+                    chapterMap[ch].push({
+                        id,
+                        ...r
+                    });
+                });
+                updateStats();
+                doSearch();
+            });
+        }
+
+        function isToday(ts) {
+            if (!ts) return false;
+            const now = new Date();
+            const clean = (ts + '').split(',')[0].trim();
+            const d = now.getDate(),
+                m = now.getMonth() + 1,
+                y = now.getFullYear();
+            return [
+                `${d}/${m}/${y}`,
+                `${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`,
+                `${m}/${d}/${y}`
+            ].includes(clean);
+        }
+
+        function updateStats() {
+            const names = Object.keys(dataMap);
+            document.getElementById('totalStudents').textContent = names.length;
+            document.getElementById('totalTests').textContent = allAttempts.length;
+            const scores = allAttempts.map(a => parseFloat(a.score)).filter(n => !isNaN(n));
+            const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+            document.getElementById('avgScore').textContent = avg + '%';
+        }
+
+        function switchView(v) {
+            currentView = v;
+            document.getElementById('view-students').style.display = v === 'students' ? 'block' : 'none';
+            document.getElementById('view-chapters').style.display = v === 'chapters' ? 'block' : 'none';
+            document.getElementById('tab-students').classList.toggle('active', v === 'students');
+            document.getElementById('tab-chapters').classList.toggle('active', v === 'chapters');
+            document.getElementById('findStudent').placeholder = v === 'students' ? 'Student dhundo…' : 'Chapter dhundo…';
+            doSearch();
+        }
+
+        function doSearch() {
+            const val = document.getElementById('findStudent').value.toLowerCase().trim();
+            if (currentView === 'students') {
+                const todayList = allAttempts.filter(a => isToday(a.timestamp) && a.user.toLowerCase().includes(val));
+                const names = Object.keys(dataMap).filter(n => n.toLowerCase().includes(val)).sort();
+                renderStudents(todayList, names);
+            } else {
+                const chapters = Object.keys(chapterMap).filter(c => c.toLowerCase().includes(val)).sort();
+                renderChapters(chapters);
+            }
+        }
+
+        function avClass(name) {
+            return 'av' + (name.charCodeAt(0) % 8);
+        }
+
+        function chiClass(name) {
+            return 'chi' + ((name || 'A').charCodeAt(0) % 8);
+        }
+
+        function scoreClass(s) {
+            return s >= 70 ? 'sp-good' : s >= 40 ? 'sp-mid' : 'sp-poor';
+        }
+
+        /* ══ RENDER STUDENTS ══ */
+        function renderStudents(todayList, names) {
+            const ts = document.getElementById('todaySection');
+            if (todayList.length > 0) {
+                ts.innerHTML = `
             <div class="sec-label"><span class="live-dot"></span> Aaj Active</div>
             <div class="today-scroll">
                 ${todayList.map(a => `
@@ -619,23 +1708,22 @@
                     <span class="score-pill ${scoreClass(parseFloat(a.score))}">${a.score}%</span>
                 </div>`).join('')}
             </div>`;
-        } else {
-            ts.innerHTML = '';
-        }
+            } else {
+                ts.innerHTML = '';
+            }
 
-        /* student list */
-        document.getElementById('countChip').textContent = names.length;
-        const list = document.getElementById('studentList');
-        if (!names.length) {
-            list.innerHTML = `<div class="empty-state"><span class="empty-icon">🔍</span><div class="empty-text">Koi student nahi mila</div></div>`;
-            return;
-        }
-        list.innerHTML = names.map((n, i) => {
-            const attempts = dataMap[n].length;
-            const scores   = dataMap[n].map(a => parseFloat(a.score)).filter(x => !isNaN(x));
-            const avg      = scores.length ? Math.round(scores.reduce((s,v)=>s+v,0)/scores.length) : 0;
-            const sc = scoreClass(avg);
-            return `
+            document.getElementById('countChip').textContent = names.length;
+            const list = document.getElementById('studentList');
+            if (!names.length) {
+                list.innerHTML = `<div class="empty-state"><span class="empty-icon">🔍</span><div class="empty-text">Koi student nahi mila</div></div>`;
+                return;
+            }
+            list.innerHTML = names.map((n, i) => {
+                const attempts = dataMap[n].length;
+                const scores = dataMap[n].map(a => parseFloat(a.score)).filter(x => !isNaN(x));
+                const avg = scores.length ? Math.round(scores.reduce((s, v) => s + v, 0) / scores.length) : 0;
+                const sc = scoreClass(avg);
+                return `
             <div class="student-item" onclick="openHistory('${n}')">
                 <span class="s-rank">${i+1}</span>
                 <div class="avatar ${avClass(n)}">${n.charAt(0).toUpperCase()}</div>
@@ -645,32 +1733,70 @@
                 </div>
                 <i class="fa-solid fa-chevron-right s-arrow"></i>
             </div>`;
-        }).join('');
-    }
-
-    /* ══ MODAL ══ */
-    function openModal(title, html, onBack) {
-        document.getElementById('modalTitle').textContent = title;
-        document.getElementById('modalBody').innerHTML = html;
-        document.getElementById('modalBody').scrollTop = 0;
-        document.getElementById('modalBackBtn').onclick = onBack;
-        document.getElementById('viewModal').className = 'modal open';
-    }
-    function closeModal() {
-        document.getElementById('viewModal').className = 'modal';
-    }
-
-    /* ══ HISTORY LIST ══ */
-    function openHistory(name) {
-        const logs = [...(dataMap[name] || [])].reverse();
-        if (!logs.length) {
-            openModal(name, `<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-text">Koi attempt nahi</div></div>`, closeModal);
-            return;
+            }).join('');
         }
-        const html = logs.map(l => {
-            const sc = parseFloat(l.score);
-            return `
-            <div class="hist-card" onclick="openDeepDetail('${name}','${l.id}')">
+
+        /* ══ RENDER CHAPTERS ══ */
+        function renderChapters(chapters) {
+            document.getElementById('chapterCountChip').textContent = chapters.length;
+            const list = document.getElementById('chapterList');
+            if (!chapters.length) {
+                list.innerHTML = `<div class="empty-state"><span class="empty-icon">🔍</span><div class="empty-text">Koi chapter nahi mila</div></div>`;
+                return;
+            }
+            list.innerHTML = chapters.map(ch => {
+                const attempts = chapterMap[ch];
+                // unique students only
+                const uniqueStudents = [...new Set(attempts.map(a => a.user))].sort();
+                const scores = attempts.map(a => parseFloat(a.score)).filter(x => !isNaN(x));
+                const avg = scores.length ? Math.round(scores.reduce((s, v) => s + v, 0) / scores.length) : 0;
+
+                const studentRows = uniqueStudents.map(sname => {
+                    const sAttempts = attempts.filter(a => a.user === sname);
+                    const sScores = sAttempts.map(a => parseFloat(a.score)).filter(x => !isNaN(x));
+                    const sAvg = sScores.length ? Math.round(sScores.reduce((s, v) => s + v, 0) / sScores.length) : 0;
+                    return `
+                <div class="ch-student-row" onclick="openChapterStudentHistory('${sname.replace(/'/g,"\\'")}','${ch.replace(/'/g,"\\'")}')">
+                    <div class="ch-av ${avClass(sname)}">${sname.charAt(0).toUpperCase()}</div>
+                    <div style="flex:1;min-width:0;">
+                        <div class="ch-sname">${sname}</div>
+                        <span class="ch-smeta">${sAttempts.length} attempt${sAttempts.length>1?'s':''}</span>
+                    </div>
+                    <span class="score-pill ${scoreClass(sAvg)}" style="font-size:11px;">${sAvg}%</span>
+                    <i class="fa-solid fa-chevron-right s-arrow" style="font-size:11px;margin-left:6px;"></i>
+                </div>`;
+                }).join('');
+
+                return `
+            <div class="chapter-card">
+                <div class="chapter-header" onclick="toggleChapter(this)">
+                    <div class="ch-icon ${chiClass(ch)}"><i class="fa-solid fa-book"></i></div>
+                    <div class="ch-info">
+                        <span class="ch-name">${ch}</span>
+                        <span class="ch-meta">${uniqueStudents.length} student${uniqueStudents.length>1?'s':''} &bull; ${attempts.length} attempt${attempts.length>1?'s':''} &bull; avg ${avg}%</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right ch-toggle"></i>
+                </div>
+                <div class="chapter-students">${studentRows}</div>
+            </div>`;
+            }).join('');
+        }
+
+        function toggleChapter(headerEl) {
+            const body = headerEl.nextElementSibling;
+            const icon = headerEl.querySelector('.ch-toggle');
+            const isOpen = body.classList.contains('open');
+            body.classList.toggle('open', !isOpen);
+            icon.classList.toggle('open', !isOpen);
+        }
+
+        /* ══ CHAPTER → student's attempts in that chapter ══ */
+        function openChapterStudentHistory(name, chapter) {
+            const logs = (chapterMap[chapter] || []).filter(a => a.user === name).slice().reverse();
+            const html = logs.map(l => {
+                const sc = parseFloat(l.score);
+                return `
+            <div class="hist-card" onclick="openDeepDetailFromChapter('${name.replace(/'/g,"\\'")}','${l.id}','${chapter.replace(/'/g,"\\'")}')">
                 <div class="h-icon"><i class="fa-solid fa-file-alt"></i></div>
                 <div class="h-info">
                     <span class="h-chapter">${l.chapter || 'Unknown Chapter'}</span>
@@ -679,37 +1805,82 @@
                 <span class="score-pill ${scoreClass(sc)}">${l.score}%</span>
                 <i class="fa-solid fa-chevron-right s-arrow" style="font-size:12px;"></i>
             </div>`;
-        }).join('');
-        openModal(name, html, closeModal);
-    }
-
-    /* ══ DEEP DETAIL ══ */
-    function openDeepDetail(name, id) {
-        const test = allAttempts.find(x => x.id === id);
-        if (!test) return;
-
-        /* ── responses: handle both array and object from Firebase ── */
-        let responses = test.responses || [];
-        if (!Array.isArray(responses)) {
-            responses = Object.values(responses);
+            }).join('');
+            openModal(
+                name,
+                html || `<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-text">Koi attempt nahi</div></div>`,
+                closeModal
+            );
         }
 
-        const total   = responses.length;
-        const right   = responses.filter(r => r && r.status === 'correct').length;
-        const skipped = responses.filter(r => r && (!r.selectedOption || r.selectedOption === 'Skipped')).length;
-        const wrong   = total - right - skipped;
-        const sc      = parseFloat(test.score);
+        /* deep detail called from chapter flow — back goes to chapter student history */
+        function openDeepDetailFromChapter(name, id, chapter) {
+            _openDeepDetail(name, id, () => openChapterStudentHistory(name, chapter));
+        }
 
-        const scoreGrade = sc >= 70 ? 'good' : sc >= 40 ? 'mid' : 'poor';
+        /* ══ MODAL ══ */
+        function openModal(title, html, onBack) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('modalBody').scrollTop = 0;
+            document.getElementById('modalBackBtn').onclick = onBack;
+            document.getElementById('viewModal').className = 'modal open';
+        }
 
-        const qCards = responses.map((r, i) => {
-            if (!r) return '';
-            const isSkipped = !r.selectedOption || r.selectedOption === 'Skipped';
-            const isCorrect = r.status === 'correct';
-            const type      = isSkipped ? 'skipped' : (isCorrect ? 'correct' : 'wrong');
-            const imgHtml   = r.img ? `<img src="${r.img}" class="q-img" onerror="this.style.display='none'">` : '';
+        function closeModal() {
+            document.getElementById('viewModal').className = 'modal';
+        }
 
-            return `
+        /* ══ HISTORY LIST (student view) ══ */
+        function openHistory(name) {
+            const logs = [...(dataMap[name] || [])].reverse();
+            if (!logs.length) {
+                openModal(name, `<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-text">Koi attempt nahi</div></div>`, closeModal);
+                return;
+            }
+            const html = logs.map(l => {
+                const sc = parseFloat(l.score);
+                return `
+            <div class="hist-card" onclick="openDeepDetail('${name.replace(/'/g,"\\'")}','${l.id}')">
+                <div class="h-icon"><i class="fa-solid fa-file-alt"></i></div>
+                <div class="h-info">
+                    <span class="h-chapter">${l.chapter || 'Unknown Chapter'}</span>
+                    <span class="h-ts">${l.timestamp || ''}</span>
+                </div>
+                <span class="score-pill ${scoreClass(sc)}">${l.score}%</span>
+                <i class="fa-solid fa-chevron-right s-arrow" style="font-size:12px;"></i>
+            </div>`;
+            }).join('');
+            openModal(name, html, closeModal);
+        }
+
+        /* ══ DEEP DETAIL (student flow — back to history) ══ */
+        function openDeepDetail(name, id) {
+            _openDeepDetail(name, id, () => openHistory(name));
+        }
+
+        /* ══ CORE DEEP DETAIL ══ */
+        function _openDeepDetail(name, id, backFn) {
+            const test = allAttempts.find(x => x.id === id);
+            if (!test) return;
+
+            let responses = test.responses || [];
+            if (!Array.isArray(responses)) responses = Object.values(responses);
+
+            const total = responses.length;
+            const right = responses.filter(r => r && r.status === 'correct').length;
+            const skipped = responses.filter(r => r && (!r.selectedOption || r.selectedOption === 'Skipped')).length;
+            const wrong = total - right - skipped;
+            const sc = parseFloat(test.score);
+            const scoreGrade = sc >= 70 ? 'good' : sc >= 40 ? 'mid' : 'poor';
+
+            const qCards = responses.map((r, i) => {
+                if (!r) return '';
+                const isSkipped = !r.selectedOption || r.selectedOption === 'Skipped';
+                const isCorrect = r.status === 'correct';
+                const type = isSkipped ? 'skipped' : (isCorrect ? 'correct' : 'wrong');
+                const imgHtml = r.img ? `<img src="${r.img}" class="q-img" onerror="this.style.display='none'">` : '';
+                return `
             <div class="q-card q-box" data-type="${type}">
                 <span class="q-num">Q${i+1} &nbsp;·&nbsp; ${type.toUpperCase()}</span>
                 ${imgHtml}
@@ -725,9 +1896,9 @@
                     </div>` : ''}
                 </div>
             </div>`;
-        }).join('');
+            }).join('');
 
-        const html = `
+            const html = `
         <div class="result-hero">
             <div class="big-score ${scoreGrade}">${test.score}%</div>
             <div class="hero-name">${name}</div>
@@ -746,16 +1917,17 @@
         </div>
         <div id="qContainer">${qCards}</div>`;
 
-        openModal(name, html, () => openHistory(name));
-    }
+            openModal(name, html, backFn);
+        }
 
-    function filterQ(type, btn) {
-        document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.q-box').forEach(box => {
-            box.style.display = (type === 'all' || box.dataset.type === type) ? 'block' : 'none';
-        });
-    }
-</script>
+        function filterQ(type, btn) {
+            document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.q-box').forEach(box => {
+                box.style.display = (type === 'all' || box.dataset.type === type) ? 'block' : 'none';
+            });
+        }
+    </script>
 </body>
-</html>
+
+    </html>
