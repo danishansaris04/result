@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCMC | Admin Panel</title>
+    <title>CCMC | Reports</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -31,17 +30,14 @@
             --rs: 16px;
         }
 
-        *,
-        *::before,
-        *::after {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
 
-        html,
-        body {
+        html, body {
             font-family: 'Nunito', sans-serif;
             background: var(--bg);
             color: var(--text);
@@ -49,341 +45,10 @@
             overflow-x: hidden;
         }
 
-        .syne {
-            font-family: 'Syne', sans-serif;
-        }
+        .syne { font-family: 'Syne', sans-serif; }
 
-        ::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 2px;
-        }
-
-        /* ══ LOGIN ══ */
-        #loginScreen {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-            background: var(--bg);
-        }
-
-        .login-orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(90px);
-            pointer-events: none;
-        }
-
-        .orb1 {
-            width: 320px;
-            height: 320px;
-            background: radial-gradient(circle, rgba(124, 109, 255, 0.25), transparent);
-            top: -80px;
-            left: -80px;
-            animation: orbFloat 9s ease-in-out infinite;
-        }
-
-        .orb2 {
-            width: 260px;
-            height: 260px;
-            background: radial-gradient(circle, rgba(255, 84, 112, 0.18), transparent);
-            bottom: -60px;
-            right: -60px;
-            animation: orbFloat 11s ease-in-out infinite reverse;
-        }
-
-        .orb3 {
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(0, 212, 168, 0.15), transparent);
-            top: 50%;
-            left: 60%;
-            animation: orbFloat 8s ease-in-out 3s infinite;
-        }
-
-        @keyframes orbFloat {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            33% {
-                transform: translate(18px, -18px) scale(1.04);
-            }
-
-            66% {
-                transform: translate(-12px, 14px) scale(0.96);
-            }
-        }
-
-        .login-card {
-            width: 100%;
-            max-width: 390px;
-            position: relative;
-            z-index: 2;
-            background: var(--s2);
-            border: 1px solid var(--border2);
-            border-radius: 32px;
-            padding: 38px 30px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(124, 109, 255, 0.1);
-            animation: cardIn 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) both;
-        }
-
-        @keyframes cardIn {
-            from {
-                opacity: 0;
-                transform: translateY(28px) scale(0.96);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .login-logo {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .login-icon {
-            width: 68px;
-            height: 68px;
-            border-radius: 22px;
-            margin: 0 auto 16px;
-            background: linear-gradient(135deg, var(--p), var(--g));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(124, 109, 255, 0.4);
-            animation: iconGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes iconGlow {
-
-            0%,
-            100% {
-                box-shadow: 0 10px 28px rgba(124, 109, 255, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 10px 36px rgba(124, 109, 255, 0.65);
-            }
-        }
-
-        .login-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--text);
-        }
-
-        .login-sub {
-            font-size: 11px;
-            color: var(--muted);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .field-wrap {
-            position: relative;
-            margin-bottom: 14px;
-        }
-
-        .field-wrap .fi {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--muted);
-            font-size: 13px;
-            pointer-events: none;
-        }
-
-        .login-inp {
-            width: 100%;
-            padding: 15px 44px 15px 44px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            color: var(--text);
-            font-family: 'Nunito', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            outline: none;
-            transition: border-color 0.2s, background 0.2s;
-        }
-
-        .login-inp::placeholder {
-            color: var(--muted);
-        }
-
-        .login-inp:focus {
-            border-color: rgba(124, 109, 255, 0.6);
-            background: rgba(124, 109, 255, 0.07);
-            box-shadow: 0 0 0 4px rgba(124, 109, 255, 0.1);
-        }
-
-        .eye-btn {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--muted);
-            font-size: 14px;
-            padding: 4px;
-        }
-
-        .login-error {
-            background: rgba(255, 84, 112, 0.1);
-            border: 1px solid rgba(255, 84, 112, 0.25);
-            color: #ff8fab;
-            border-radius: 14px;
-            padding: 12px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            animation: shake 0.4s ease;
-        }
-
-        .login-error.show {
-            display: flex;
-        }
-
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            20%,
-            60% {
-                transform: translateX(-6px);
-            }
-
-            40%,
-            80% {
-                transform: translateX(6px);
-            }
-        }
-
-        .lockout-box {
-            background: rgba(255, 84, 112, 0.08);
-            border: 1px solid rgba(255, 84, 112, 0.2);
-            border-radius: 14px;
-            padding: 14px 16px;
-            text-align: center;
-            color: #ff8fab;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: none;
-        }
-
-        .lockout-box.show {
-            display: block;
-        }
-
-        .lockout-num {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            display: block;
-            margin-top: 4px;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--p), var(--pd));
-            color: white;
-            font-family: 'Nunito', sans-serif;
-            font-size: 15px;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(124, 109, 255, 0.35);
-            transition: transform 0.15s, box-shadow 0.15s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(124, 109, 255, 0.5);
-        }
-
-        .btn-login:active {
-            transform: scale(0.98);
-        }
-
-        .btn-login:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-login .spin {
-            display: none;
-            animation: spin 0.7s linear infinite;
-        }
-
-        .btn-login.loading .btn-text {
-            display: none;
-        }
-
-        .btn-login.loading .spin {
-            display: inline-block;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .dots-row {
-            display: flex;
-            gap: 6px;
-            justify-content: center;
-            margin-top: 16px;
-        }
-
-        .att-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: background 0.3s;
-        }
-
-        .att-dot.used {
-            background: rgba(255, 84, 112, 0.7);
-        }
-
-        /* ══ ADMIN APP ══ */
-        #adminApp {
-            display: none;
-        }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
 
         /* ── TOPBAR ── */
         .topbar {
@@ -425,7 +90,7 @@
             justify-content: center;
             font-size: 15px;
             color: white;
-            box-shadow: 0 4px 14px rgba(124, 109, 255, 0.4);
+            box-shadow: 0 4px 14px rgba(124,109,255,0.4);
         }
 
         .logo-name {
@@ -458,8 +123,8 @@
             font-weight: 800;
             cursor: pointer;
             border: 1px solid var(--border2);
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.7);
             display: flex;
             align-items: center;
             gap: 7px;
@@ -467,19 +132,8 @@
         }
 
         .tb-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255,255,255,0.12);
             color: var(--text);
-        }
-
-        .tb-btn.danger {
-            background: rgba(255, 84, 112, 0.1);
-            border-color: rgba(255, 84, 112, 0.25);
-            color: rgba(255, 130, 155, 0.9);
-        }
-
-        .tb-btn.danger:hover {
-            background: rgba(255, 84, 112, 0.2);
-            color: var(--danger);
         }
 
         .search-wrap {
@@ -499,7 +153,7 @@
         .search-inp {
             width: 100%;
             padding: 12px 16px 12px 40px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border: 1px solid var(--border);
             border-radius: 14px;
             color: var(--text);
@@ -510,19 +164,14 @@
             transition: border-color 0.2s;
         }
 
-        .search-inp::placeholder {
-            color: var(--muted);
-        }
-
-        .search-inp:focus {
-            border-color: rgba(124, 109, 255, 0.5);
-        }
+        .search-inp::placeholder { color: var(--muted); }
+        .search-inp:focus { border-color: rgba(124,109,255,0.5); }
 
         /* ── VIEW TABS ── */
         .view-tabs {
             display: flex;
             gap: 5px;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 4px;
@@ -537,7 +186,7 @@
             cursor: pointer;
             border: none;
             background: transparent;
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255,255,255,0.35);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -546,14 +195,8 @@
             font-family: 'Nunito', sans-serif;
         }
 
-        .vtab i {
-            font-size: 11px;
-        }
-
-        .vtab.active {
-            background: rgba(124, 109, 255, 0.25);
-            color: var(--p2);
-        }
+        .vtab i { font-size: 11px; }
+        .vtab.active { background: rgba(124,109,255,0.25); color: var(--p2); }
 
         /* ── MAIN ── */
         .main {
@@ -597,18 +240,10 @@
         }
 
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(14px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* section label */
         .sec-label {
             font-size: 11px;
             font-weight: 800;
@@ -633,26 +268,17 @@
             height: 6px;
             border-radius: 50%;
             background: var(--g);
-            box-shadow: 0 0 0 0 rgba(0, 212, 168, 0.4);
+            box-shadow: 0 0 0 0 rgba(0,212,168,0.4);
             animation: liveP 1.5s infinite;
             display: inline-block;
         }
 
         @keyframes liveP {
-            0% {
-                box-shadow: 0 0 0 0 rgba(0, 212, 168, 0.4);
-            }
-
-            70% {
-                box-shadow: 0 0 0 7px rgba(0, 212, 168, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(0, 212, 168, 0);
-            }
+            0%   { box-shadow: 0 0 0 0 rgba(0,212,168,0.4); }
+            70%  { box-shadow: 0 0 0 7px rgba(0,212,168,0); }
+            100% { box-shadow: 0 0 0 0 rgba(0,212,168,0); }
         }
 
-        /* today strip */
         .today-scroll {
             display: flex;
             gap: 9px;
@@ -662,9 +288,7 @@
             margin-bottom: 24px;
         }
 
-        .today-scroll::-webkit-scrollbar {
-            display: none;
-        }
+        .today-scroll::-webkit-scrollbar { display: none; }
 
         .today-chip {
             flex-shrink: 0;
@@ -678,10 +302,7 @@
             transition: all 0.2s;
         }
 
-        .today-chip:hover {
-            border-color: rgba(124, 109, 255, 0.4);
-            transform: translateY(-2px);
-        }
+        .today-chip:hover { border-color: rgba(124,109,255,0.4); transform: translateY(-2px); }
 
         .today-chip-name {
             font-size: 12px;
@@ -701,25 +322,10 @@
             font-weight: 900;
         }
 
-        .sp-good {
-            background: rgba(0, 212, 168, 0.15);
-            color: var(--g);
-            border: 1px solid rgba(0, 212, 168, 0.3);
-        }
+        .sp-good { background: rgba(0,212,168,0.15); color: var(--g); border: 1px solid rgba(0,212,168,0.3); }
+        .sp-poor { background: rgba(255,84,112,0.15); color: var(--danger); border: 1px solid rgba(255,84,112,0.3); }
+        .sp-mid  { background: rgba(255,181,71,0.15); color: var(--warn); border: 1px solid rgba(255,181,71,0.3); }
 
-        .sp-poor {
-            background: rgba(255, 84, 112, 0.15);
-            color: var(--danger);
-            border: 1px solid rgba(255, 84, 112, 0.3);
-        }
-
-        .sp-mid {
-            background: rgba(255, 181, 71, 0.15);
-            color: var(--warn);
-            border: 1px solid rgba(255, 181, 71, 0.3);
-        }
-
-        /* student list */
         .count-chip {
             background: var(--s3);
             color: var(--muted);
@@ -742,23 +348,10 @@
             transition: border-color 0.2s, transform 0.15s;
         }
 
-        .student-item:hover {
-            border-color: rgba(124, 109, 255, 0.35);
-            transform: translateX(3px);
-        }
+        .student-item:hover { border-color: rgba(124,109,255,0.35); transform: translateX(3px); }
+        .student-item:active { transform: scale(0.98); }
 
-        .student-item:active {
-            transform: scale(0.98);
-        }
-
-        .s-rank {
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--muted);
-            width: 22px;
-            text-align: center;
-            flex-shrink: 0;
-        }
+        .s-rank { font-size: 11px; font-weight: 800; color: var(--muted); width: 22px; text-align: center; flex-shrink: 0; }
 
         .avatar {
             width: 44px;
@@ -774,61 +367,19 @@
             color: white;
         }
 
-        .av0 {
-            background: linear-gradient(135deg, #7c6dff, #a78bfa);
-        }
+        .av0 { background: linear-gradient(135deg,#7c6dff,#a78bfa); }
+        .av1 { background: linear-gradient(135deg,#ff5470,#f472b6); }
+        .av2 { background: linear-gradient(135deg,#00d4a8,#34d399); }
+        .av3 { background: linear-gradient(135deg,#ffb547,#fbbf24); }
+        .av4 { background: linear-gradient(135deg,#3b82f6,#60a5fa); }
+        .av5 { background: linear-gradient(135deg,#ec4899,#f43f5e); }
+        .av6 { background: linear-gradient(135deg,#8b5cf6,#7c3aed); }
+        .av7 { background: linear-gradient(135deg,#14b8a6,#0d9488); }
 
-        .av1 {
-            background: linear-gradient(135deg, #ff5470, #f472b6);
-        }
-
-        .av2 {
-            background: linear-gradient(135deg, #00d4a8, #34d399);
-        }
-
-        .av3 {
-            background: linear-gradient(135deg, #ffb547, #fbbf24);
-        }
-
-        .av4 {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-        }
-
-        .av5 {
-            background: linear-gradient(135deg, #ec4899, #f43f5e);
-        }
-
-        .av6 {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-
-        .av7 {
-            background: linear-gradient(135deg, #14b8a6, #0d9488);
-        }
-
-        .s-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .s-name {
-            font-size: 15px;
-            font-weight: 800;
-            display: block;
-        }
-
-        .s-meta {
-            font-size: 12px;
-            color: var(--muted);
-            font-weight: 600;
-            margin-top: 3px;
-            display: block;
-        }
-
-        .s-arrow {
-            color: var(--muted);
-            font-size: 13px;
-        }
+        .s-info { flex: 1; min-width: 0; }
+        .s-name { font-size: 15px; font-weight: 800; display: block; }
+        .s-meta { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 3px; display: block; }
+        .s-arrow { color: var(--muted); font-size: 13px; }
 
         /* ── CHAPTER VIEW ── */
         .chapter-card {
@@ -840,9 +391,7 @@
             transition: border-color 0.2s;
         }
 
-        .chapter-card:hover {
-            border-color: rgba(124, 109, 255, 0.25);
-        }
+        .chapter-card:hover { border-color: rgba(124,109,255,0.25); }
 
         .chapter-header {
             padding: 15px 16px;
@@ -853,9 +402,7 @@
             transition: background 0.2s;
         }
 
-        .chapter-header:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
+        .chapter-header:hover { background: rgba(255,255,255,0.03); }
 
         .ch-icon {
             width: 44px;
@@ -869,98 +416,36 @@
             color: white;
         }
 
-        .chi0 {
-            background: linear-gradient(135deg, #7c6dff, #a78bfa);
-        }
+        .chi0 { background: linear-gradient(135deg,#7c6dff,#a78bfa); }
+        .chi1 { background: linear-gradient(135deg,#ff5470,#f472b6); }
+        .chi2 { background: linear-gradient(135deg,#00d4a8,#34d399); }
+        .chi3 { background: linear-gradient(135deg,#ffb547,#fbbf24); }
+        .chi4 { background: linear-gradient(135deg,#3b82f6,#60a5fa); }
+        .chi5 { background: linear-gradient(135deg,#ec4899,#f43f5e); }
+        .chi6 { background: linear-gradient(135deg,#8b5cf6,#7c3aed); }
+        .chi7 { background: linear-gradient(135deg,#14b8a6,#0d9488); }
 
-        .chi1 {
-            background: linear-gradient(135deg, #ff5470, #f472b6);
-        }
+        .ch-info { flex: 1; min-width: 0; }
+        .ch-name { font-size: 14px; font-weight: 800; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ch-meta { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 3px; display: block; }
+        .ch-toggle { color: var(--muted); font-size: 13px; transition: transform 0.3s; flex-shrink: 0; }
+        .ch-toggle.open { transform: rotate(90deg); }
 
-        .chi2 {
-            background: linear-gradient(135deg, #00d4a8, #34d399);
-        }
-
-        .chi3 {
-            background: linear-gradient(135deg, #ffb547, #fbbf24);
-        }
-
-        .chi4 {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-        }
-
-        .chi5 {
-            background: linear-gradient(135deg, #ec4899, #f43f5e);
-        }
-
-        .chi6 {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-
-        .chi7 {
-            background: linear-gradient(135deg, #14b8a6, #0d9488);
-        }
-
-        .ch-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .ch-name {
-            font-size: 14px;
-            font-weight: 800;
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .ch-meta {
-            font-size: 11px;
-            color: var(--muted);
-            font-weight: 600;
-            margin-top: 3px;
-            display: block;
-        }
-
-        .ch-toggle {
-            color: var(--muted);
-            font-size: 13px;
-            transition: transform 0.3s;
-            flex-shrink: 0;
-        }
-
-        .ch-toggle.open {
-            transform: rotate(90deg);
-        }
-
-        .chapter-students {
-            display: none;
-            border-top: 1px solid var(--border);
-            padding: 8px 16px 12px;
-        }
-
-        .chapter-students.open {
-            display: block;
-        }
+        .chapter-students { display: none; border-top: 1px solid var(--border); padding: 8px 16px 12px; }
+        .chapter-students.open { display: block; }
 
         .ch-student-row {
             display: flex;
             align-items: center;
             gap: 10px;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
             cursor: pointer;
             transition: transform 0.15s;
         }
 
-        .ch-student-row:last-child {
-            border-bottom: none;
-        }
-
-        .ch-student-row:hover {
-            transform: translateX(4px);
-        }
+        .ch-student-row:last-child { border-bottom: none; }
+        .ch-student-row:hover { transform: translateX(4px); }
 
         .ch-av {
             width: 36px;
@@ -976,21 +461,10 @@
             color: white;
         }
 
-        .ch-sname {
-            font-size: 13px;
-            font-weight: 800;
-            flex: 1;
-        }
+        .ch-sname { font-size: 13px; font-weight: 800; flex: 1; }
+        .ch-smeta { font-size: 10px; color: var(--muted); font-weight: 600; display: block; margin-top: 1px; }
 
-        .ch-smeta {
-            font-size: 10px;
-            color: var(--muted);
-            font-weight: 600;
-            display: block;
-            margin-top: 1px;
-        }
-
-        /* ── MODAL (full screen) ── */
+        /* ── MODAL ── */
         .modal {
             display: none;
             position: fixed;
@@ -1006,19 +480,12 @@
         }
 
         @keyframes slideUp {
-            from {
-                transform: translateY(24px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(24px); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
         }
 
         .modal-nav {
-            background: rgba(10, 9, 20, 0.97);
+            background: rgba(10,9,20,0.97);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             padding: 14px 16px;
@@ -1035,7 +502,7 @@
             width: 38px;
             height: 38px;
             border-radius: 13px;
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255,255,255,0.07);
             border: 1px solid var(--border);
             cursor: pointer;
             display: flex;
@@ -1046,9 +513,7 @@
             transition: background 0.2s;
         }
 
-        .btn-back:hover {
-            background: rgba(255, 255, 255, 0.13);
-        }
+        .btn-back:hover { background: rgba(255,255,255,0.13); }
 
         .modal-title-text {
             font-family: 'Syne', sans-serif;
@@ -1070,7 +535,6 @@
             margin: auto;
         }
 
-        /* history cards */
         .hist-card {
             background: var(--s3);
             border: 1px solid var(--border);
@@ -1084,17 +548,14 @@
             transition: border-color 0.2s, transform 0.15s;
         }
 
-        .hist-card:hover {
-            border-color: rgba(124, 109, 255, 0.35);
-            transform: translateX(3px);
-        }
+        .hist-card:hover { border-color: rgba(124,109,255,0.35); transform: translateX(3px); }
 
         .h-icon {
             width: 42px;
             height: 42px;
             border-radius: 13px;
-            background: rgba(124, 109, 255, 0.12);
-            border: 1px solid rgba(124, 109, 255, 0.2);
+            background: rgba(124,109,255,0.12);
+            border: 1px solid rgba(124,109,255,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1103,26 +564,10 @@
             flex-shrink: 0;
         }
 
-        .h-info {
-            flex: 1;
-            min-width: 0;
-        }
+        .h-info { flex: 1; min-width: 0; }
+        .h-chapter { font-size: 14px; font-weight: 800; display: block; }
+        .h-ts { font-size: 11px; color: var(--muted); font-weight: 600; display: block; margin-top: 2px; }
 
-        .h-chapter {
-            font-size: 14px;
-            font-weight: 800;
-            display: block;
-        }
-
-        .h-ts {
-            font-size: 11px;
-            color: var(--muted);
-            font-weight: 600;
-            display: block;
-            margin-top: 2px;
-        }
-
-        /* result hero */
         .result-hero {
             background: var(--s2);
             border: 1px solid var(--border2);
@@ -1137,47 +582,20 @@
         .result-hero::before {
             content: '';
             position: absolute;
-            top: -40px;
-            right: -40px;
-            width: 130px;
-            height: 130px;
+            top: -40px; right: -40px;
+            width: 130px; height: 130px;
             border-radius: 50%;
-            background: rgba(124, 109, 255, 0.12);
+            background: rgba(124,109,255,0.12);
         }
 
-        .big-score {
-            font-family: 'Syne', sans-serif;
-            font-size: 56px;
-            font-weight: 800;
-            line-height: 1;
-        }
+        .big-score { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800; line-height: 1; }
+        .big-score.good { color: var(--g); }
+        .big-score.mid  { color: var(--warn); }
+        .big-score.poor { color: var(--danger); }
 
-        .big-score.good {
-            color: var(--g);
-        }
+        .hero-name { font-size: 16px; font-weight: 800; margin-top: 8px; }
+        .hero-meta { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 4px; }
 
-        .big-score.mid {
-            color: var(--warn);
-        }
-
-        .big-score.poor {
-            color: var(--danger);
-        }
-
-        .hero-name {
-            font-size: 16px;
-            font-weight: 800;
-            margin-top: 8px;
-        }
-
-        .hero-meta {
-            font-size: 12px;
-            color: var(--muted);
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* pills */
         .pills-row {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -1185,32 +603,10 @@
             margin-bottom: 16px;
         }
 
-        .pill {
-            background: var(--s3);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 14px 10px;
-            text-align: center;
-        }
+        .pill { background: var(--s3); border: 1px solid var(--border); border-radius: 16px; padding: 14px 10px; text-align: center; }
+        .pill-num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; display: block; }
+        .pill-lbl { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-top: 3px; }
 
-        .pill-num {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            display: block;
-        }
-
-        .pill-lbl {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            display: block;
-            margin-top: 3px;
-        }
-
-        /* filter tabs */
         .filter-strip {
             display: flex;
             gap: 7px;
@@ -1220,9 +616,7 @@
             padding-bottom: 2px;
         }
 
-        .filter-strip::-webkit-scrollbar {
-            display: none;
-        }
+        .filter-strip::-webkit-scrollbar { display: none; }
 
         .ftab {
             flex-shrink: 0;
@@ -1241,18 +635,9 @@
             font-family: 'Nunito', sans-serif;
         }
 
-        .ftab .num {
-            font-size: 11px;
-            opacity: 0.6;
-        }
+        .ftab .num { font-size: 11px; opacity: 0.6; }
+        .ftab.active { background: var(--p); border-color: var(--p); color: #fff; }
 
-        .ftab.active {
-            background: var(--p);
-            border-color: var(--p);
-            color: #fff;
-        }
-
-        /* q card */
         .q-card {
             background: var(--s3);
             border: 1px solid var(--border);
@@ -1263,34 +648,12 @@
             position: relative;
         }
 
-        .q-card[data-type="correct"] {
-            border-left-color: var(--g);
-        }
+        .q-card[data-type="correct"] { border-left-color: var(--g); }
+        .q-card[data-type="wrong"]   { border-left-color: var(--danger); }
+        .q-card[data-type="skipped"] { border-left-color: var(--warn); }
 
-        .q-card[data-type="wrong"] {
-            border-left-color: var(--danger);
-        }
-
-        .q-card[data-type="skipped"] {
-            border-left-color: var(--warn);
-        }
-
-        .q-num {
-            font-size: 10px;
-            font-weight: 800;
-            color: var(--muted);
-            margin-bottom: 7px;
-            display: block;
-            letter-spacing: 0.06em;
-        }
-
-        .q-text {
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.55;
-            color: var(--text);
-            word-break: break-word;
-        }
+        .q-num { font-size: 10px; font-weight: 800; color: var(--muted); margin-bottom: 7px; display: block; letter-spacing: 0.06em; }
+        .q-text { font-size: 14px; font-weight: 700; line-height: 1.55; color: var(--text); word-break: break-word; }
 
         .q-img {
             width: 100%;
@@ -1298,16 +661,11 @@
             object-fit: contain;
             border-radius: 13px;
             margin: 10px 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0,0,0,0.3);
             border: 1px solid var(--border);
         }
 
-        .ans-row {
-            margin-top: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
+        .ans-row { margin-top: 12px; display: flex; flex-direction: column; gap: 7px; }
 
         .ans-item {
             padding: 10px 13px;
@@ -1319,174 +677,91 @@
             gap: 8px;
         }
 
-        .ans-student {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            color: var(--muted);
-        }
+        .ans-student { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted); }
+        .ans-correct { background: rgba(0,212,168,0.1); border: 1px solid rgba(0,212,168,0.25); color: var(--g); }
+        .ans-wrong   { background: rgba(255,84,112,0.1); border: 1px solid rgba(255,84,112,0.25); color: var(--danger); }
 
-        .ans-correct {
-            background: rgba(0, 212, 168, 0.1);
-            border: 1px solid rgba(0, 212, 168, 0.25);
-            color: var(--g);
-        }
-
-        .ans-wrong {
-            background: rgba(255, 84, 112, 0.1);
-            border: 1px solid rgba(255, 84, 112, 0.25);
-            color: var(--danger);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .empty-icon {
-            font-size: 40px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .empty-text {
-            font-size: 14px;
-            color: var(--muted);
-            font-weight: 600;
-        }
+        .empty-state { text-align: center; padding: 50px 20px; }
+        .empty-icon  { font-size: 40px; margin-bottom: 12px; display: block; }
+        .empty-text  { font-size: 14px; color: var(--muted); font-weight: 600; }
     </style>
 </head>
 
 <body>
 
-    <!-- ══ LOGIN ══ -->
-    <div id="loginScreen">
-        <div class="login-orb orb1"></div>
-        <div class="login-orb orb2"></div>
-        <div class="login-orb orb3"></div>
-        <div class="login-card">
-            <div class="login-logo">
-                <div class="login-icon"><i class="fa-solid fa-brain"></i></div>
-                <div class="login-title syne">CCMC Admin</div>
-                <span class="login-sub">Master Intelligence</span>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="topbar-row1">
+                <div class="logo-chip">
+                    <div class="logo-dot"><i class="fa-solid fa-brain"></i></div>
+                    <div>
+                        <div class="logo-name syne">CCMC Reports</div>
+                        <span class="logo-badge">Student Analytics</span>
+                    </div>
+                </div>
+                <div class="topbar-actions">
+                    <button class="tb-btn" onclick="smartBack()"><i class="fa-solid fa-house"></i> Home</button>
+                </div>
             </div>
-            <div class="field-wrap">
-                <i class="fa-solid fa-envelope fi"></i>
-                <input type="email" id="loginUser" class="login-inp" placeholder="Email Address" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()">
+            <div class="search-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="findStudent" class="search-inp" placeholder="Student dhundo…" onkeyup="doSearch()">
             </div>
-            <div class="field-wrap">
-                <i class="fa-solid fa-lock fi"></i>
-                <input type="password" id="loginPass" class="login-inp" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-                <button class="eye-btn" onclick="togglePass()" type="button"><i class="fa-solid fa-eye" id="eyeIcon"></i></button>
+            <div class="view-tabs">
+                <button class="vtab active" id="tab-students" onclick="switchView('students')">
+                    <i class="fa-solid fa-users"></i> Students
+                </button>
+                <button class="vtab" id="tab-chapters" onclick="switchView('chapters')">
+                    <i class="fa-solid fa-book-open"></i> Chapters
+                </button>
             </div>
-            <div class="login-error" id="loginError">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span id="loginErrMsg">Email ya password galat hai!</span>
-            </div>
-            <div class="lockout-box" id="lockoutBox">
-                🔒 Bahut zyada attempts! Dobara koshish karein:
-                <span class="lockout-num" id="lockoutTimer">0:30</span>
-            </div>
-            <button class="btn-login" id="loginBtn" onclick="doLogin()">
-                <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Login Karein</span>
-                <i class="fa-solid fa-circle-notch spin"></i>
-            </button>
-            <div class="dots-row" id="attemptsBar">
-                <div class="att-dot" id="d1"></div>
-                <div class="att-dot" id="d2"></div>
-                <div class="att-dot" id="d3"></div>
-                <div class="att-dot" id="d4"></div>
-                <div class="att-dot" id="d5"></div>
-            </div>
-            <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:0.5px;">CCMC &bull; Admin Portal &bull; v3.0</div>
         </div>
     </div>
 
-    <!-- ══ ADMIN APP ══ -->
-    <div id="adminApp">
-
-        <div class="topbar">
-            <div class="topbar-inner">
-                <div class="topbar-row1">
-                    <div class="logo-chip">
-                        <div class="logo-dot"><i class="fa-solid fa-brain"></i></div>
-                        <div>
-                            <div class="logo-name syne">CCMC Admin</div>
-                            <span class="logo-badge">Master Intelligence</span>
-                        </div>
-                    </div>
-                    <div class="topbar-actions">
-                        <button class="tb-btn" onclick="smartBack()"><i class="fa-solid fa-house"></i> Home</button>
-                        <button class="tb-btn danger" onclick="doLogout()" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
-                    </div>
-                </div>
-                <div class="search-wrap">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="findStudent" class="search-inp" placeholder="Student dhundo…" onkeyup="doSearch()">
-                </div>
-                <!-- VIEW TABS -->
-                <div class="view-tabs">
-                    <button class="vtab active" id="tab-students" onclick="switchView('students')">
-                        <i class="fa-solid fa-users"></i> Students
-                    </button>
-                    <button class="vtab" id="tab-chapters" onclick="switchView('chapters')">
-                        <i class="fa-solid fa-book-open"></i> Chapters
-                    </button>
-                </div>
+    <div class="main">
+        <div class="stats-row">
+            <div class="stat-card" style="animation-delay:0s">
+                <span class="stat-num" id="totalStudents" style="color:var(--p2)">—</span>
+                <span class="stat-lbl">Students</span>
+            </div>
+            <div class="stat-card" style="animation-delay:0.05s">
+                <span class="stat-num" id="totalTests" style="color:var(--g)">—</span>
+                <span class="stat-lbl">Tests</span>
+            </div>
+            <div class="stat-card" style="animation-delay:0.1s">
+                <span class="stat-num" id="avgScore" style="color:var(--warn)">—</span>
+                <span class="stat-lbl">Avg %</span>
             </div>
         </div>
 
-        <div class="main">
-            <!-- stats -->
-            <div class="stats-row">
-                <div class="stat-card" style="animation-delay:0s">
-                    <span class="stat-num" id="totalStudents" style="color:var(--p2)">—</span>
-                    <span class="stat-lbl">Students</span>
-                </div>
-                <div class="stat-card" style="animation-delay:0.05s">
-                    <span class="stat-num" id="totalTests" style="color:var(--g)">—</span>
-                    <span class="stat-lbl">Tests</span>
-                </div>
-                <div class="stat-card" style="animation-delay:0.1s">
-                    <span class="stat-num" id="avgScore" style="color:var(--warn)">—</span>
-                    <span class="stat-lbl">Avg %</span>
-                </div>
+        <div id="view-students">
+            <div id="todaySection"></div>
+            <div class="sec-label">
+                <i class="fa-solid fa-users"></i> Sabhi Students
+                <span class="count-chip" id="countChip">0</span>
             </div>
-
-            <!-- STUDENTS VIEW -->
-            <div id="view-students">
-                <!-- today active -->
-                <div id="todaySection"></div>
-                <!-- all students -->
-                <div class="sec-label">
-                    <i class="fa-solid fa-users"></i> Sabhi Students
-                    <span class="count-chip" id="countChip">0</span>
-                </div>
-                <div id="studentList"></div>
-            </div>
-
-            <!-- CHAPTERS VIEW -->
-            <div id="view-chapters" style="display:none;">
-                <div class="sec-label">
-                    <i class="fa-solid fa-book-open"></i> Chapter Wise
-                    <span class="count-chip" id="chapterCountChip">0</span>
-                </div>
-                <div id="chapterList"></div>
-            </div>
+            <div id="studentList"></div>
         </div>
 
-        <!-- MODAL -->
-        <div id="viewModal" class="modal">
-            <div class="modal-nav">
-                <button class="btn-back" id="modalBackBtn"><i class="fa-solid fa-chevron-left"></i></button>
-                <div class="modal-title-text" id="modalTitle">Details</div>
+        <div id="view-chapters" style="display:none;">
+            <div class="sec-label">
+                <i class="fa-solid fa-book-open"></i> Chapter Wise
+                <span class="count-chip" id="chapterCountChip">0</span>
             </div>
-            <div class="modal-body" id="modalBody"></div>
+            <div id="chapterList"></div>
         </div>
+    </div>
 
+    <!-- MODAL -->
+    <div id="viewModal" class="modal">
+        <div class="modal-nav">
+            <button class="btn-back" id="modalBackBtn"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="modal-title-text" id="modalTitle">Details</div>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
     </div>
 
     <script>
-        /* ══ FIREBASE ══ */
         const firebaseConfig = {
             apiKey: "AIzaSyAX40dcdJ96TOhBgqa4bbIiOwLlUShnUI8",
             databaseURL: "https://ccmc-90ba3-default-rtdb.firebaseio.com",
@@ -1494,144 +769,26 @@
         };
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
-        const MAX_ATTEMPTS = 5,
-            LOCKOUT_SEC = 30;
-        let failedAttempts = 0,
-            lockoutInterval = null;
-
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) showApp();
-        });
-
-        function togglePass() {
-            const inp = document.getElementById('loginPass');
-            const ic = document.getElementById('eyeIcon');
-            inp.type = inp.type === 'password' ? 'text' : 'password';
-            ic.className = inp.type === 'password' ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
-        }
-
-        function doLogin() {
-            if (lockoutInterval) return;
-            const btn = document.getElementById('loginBtn');
-            const email = document.getElementById('loginUser').value.trim();
-            const pass = document.getElementById('loginPass').value;
-            if (!email || !pass) {
-                showErr('Email aur password dono bharein!');
-                return;
-            }
-            btn.classList.add('loading');
-            btn.disabled = true;
-            firebase.auth().signInWithEmailAndPassword(email, pass)
-                .then(() => {
-                    btn.classList.remove('loading');
-                    btn.disabled = false;
-                })
-                .catch(err => {
-                    btn.classList.remove('loading');
-                    btn.disabled = false;
-                    failedAttempts++;
-                    updateDots();
-                    const msgs = {
-                        'auth/user-not-found': 'Yeh email registered nahi hai!',
-                        'auth/wrong-password': 'Password galat hai!',
-                        'auth/invalid-email': 'Email format sahi nahi hai!',
-                        'auth/too-many-requests': 'Bahut zyada attempts! Thodi der baad try karein.',
-                        'auth/invalid-credential': 'Email ya password galat hai!'
-                    };
-                    const msg = msgs[err.code] || 'Email ya password galat hai!';
-                    if (failedAttempts >= MAX_ATTEMPTS) startLockout();
-                    else showErr(msg + ` (${MAX_ATTEMPTS-failedAttempts} chance baaki)`);
-                });
-        }
-
-        function showErr(msg) {
-            const el = document.getElementById('loginError');
-            document.getElementById('loginErrMsg').textContent = msg;
-            el.className = 'login-error show';
-            el.style.animation = 'none';
-            requestAnimationFrame(() => {
-                el.style.animation = '';
-            });
-        }
-
-        function updateDots() {
-            for (let i = 1; i <= MAX_ATTEMPTS; i++) {
-                const d = document.getElementById('d' + i);
-                if (d) d.className = 'att-dot' + (i <= failedAttempts ? ' used' : '');
-            }
-        }
-
-        function startLockout() {
-            let sec = LOCKOUT_SEC;
-            const lb = document.getElementById('lockoutBox');
-            const lt = document.getElementById('lockoutTimer');
-            const btn = document.getElementById('loginBtn');
-            document.getElementById('loginError').className = 'login-error';
-            lb.className = 'lockout-box show';
-            btn.disabled = true;
-            lockoutInterval = setInterval(() => {
-                sec--;
-                lt.textContent = `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;
-                if (sec <= 0) {
-                    clearInterval(lockoutInterval);
-                    lockoutInterval = null;
-                    lb.className = 'lockout-box';
-                    btn.disabled = false;
-                    failedAttempts = 0;
-                    updateDots();
-                }
-            }, 1000);
-        }
-
-        function showApp() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('adminApp').style.display = 'block';
-            initApp();
-        }
-
-        function doLogout() {
-            if (!confirm('Logout karna chahte hain?')) return;
-            firebase.auth().signOut().then(() => location.reload());
-        }
-
-        function smartBack() {
-            if (window.history.length > 1) window.history.back();
-            else window.location.href = "https://danishansaris04.github.io/ccmc";
-        }
-
-        /* ══ DATA ══ */
-        let dataMap = {},
-            chapterMap = {},
-            allAttempts = [];
+        let dataMap = {}, chapterMap = {}, allAttempts = [];
         let currentView = 'students';
+
+        // Seedha app shuru — koi login nahi
+        window.onload = () => initApp();
 
         function initApp() {
             const db = firebase.database();
             db.ref('user_attempts').on('value', snap => {
                 const raw = snap.val() || {};
-                dataMap = {};
-                chapterMap = {};
-                allAttempts = [];
+                dataMap = {}; chapterMap = {}; allAttempts = [];
                 Object.keys(raw).forEach(id => {
                     const r = raw[id];
                     if (!r || !r.user) return;
-                    allAttempts.push({
-                        id,
-                        ...r
-                    });
-                    // student map
+                    allAttempts.push({ id, ...r });
                     if (!dataMap[r.user]) dataMap[r.user] = [];
-                    dataMap[r.user].push({
-                        id,
-                        ...r
-                    });
-                    // chapter map
+                    dataMap[r.user].push({ id, ...r });
                     const ch = (r.chapter || 'Unknown Chapter').trim();
                     if (!chapterMap[ch]) chapterMap[ch] = [];
-                    chapterMap[ch].push({
-                        id,
-                        ...r
-                    });
+                    chapterMap[ch].push({ id, ...r });
                 });
                 updateStats();
                 doSearch();
@@ -1642,9 +799,7 @@
             if (!ts) return false;
             const now = new Date();
             const clean = (ts + '').split(',')[0].trim();
-            const d = now.getDate(),
-                m = now.getMonth() + 1,
-                y = now.getFullYear();
+            const d = now.getDate(), m = now.getMonth() + 1, y = now.getFullYear();
             return [
                 `${d}/${m}/${y}`,
                 `${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`,
@@ -1653,21 +808,20 @@
         }
 
         function updateStats() {
-            const names = Object.keys(dataMap);
-            document.getElementById('totalStudents').textContent = names.length;
+            document.getElementById('totalStudents').textContent = Object.keys(dataMap).length;
             document.getElementById('totalTests').textContent = allAttempts.length;
             const scores = allAttempts.map(a => parseFloat(a.score)).filter(n => !isNaN(n));
-            const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+            const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
             document.getElementById('avgScore').textContent = avg + '%';
         }
 
         function switchView(v) {
             currentView = v;
-            document.getElementById('view-students').style.display = v === 'students' ? 'block' : 'none';
-            document.getElementById('view-chapters').style.display = v === 'chapters' ? 'block' : 'none';
-            document.getElementById('tab-students').classList.toggle('active', v === 'students');
-            document.getElementById('tab-chapters').classList.toggle('active', v === 'chapters');
-            document.getElementById('findStudent').placeholder = v === 'students' ? 'Student dhundo…' : 'Chapter dhundo…';
+            document.getElementById('view-students').style.display = v==='students' ? 'block' : 'none';
+            document.getElementById('view-chapters').style.display  = v==='chapters' ? 'block' : 'none';
+            document.getElementById('tab-students').classList.toggle('active', v==='students');
+            document.getElementById('tab-chapters').classList.toggle('active', v==='chapters');
+            document.getElementById('findStudent').placeholder = v==='students' ? 'Student dhundo…' : 'Chapter dhundo…';
             doSearch();
         }
 
@@ -1683,31 +837,22 @@
             }
         }
 
-        function avClass(name) {
-            return 'av' + (name.charCodeAt(0) % 8);
-        }
+        function avClass(name)  { return 'av'  + (name.charCodeAt(0) % 8); }
+        function chiClass(name) { return 'chi' + ((name||'A').charCodeAt(0) % 8); }
+        function scoreClass(s)  { return s>=70 ? 'sp-good' : s>=40 ? 'sp-mid' : 'sp-poor'; }
 
-        function chiClass(name) {
-            return 'chi' + ((name || 'A').charCodeAt(0) % 8);
-        }
-
-        function scoreClass(s) {
-            return s >= 70 ? 'sp-good' : s >= 40 ? 'sp-mid' : 'sp-poor';
-        }
-
-        /* ══ RENDER STUDENTS ══ */
         function renderStudents(todayList, names) {
             const ts = document.getElementById('todaySection');
             if (todayList.length > 0) {
                 ts.innerHTML = `
-            <div class="sec-label"><span class="live-dot"></span> Aaj Active</div>
-            <div class="today-scroll">
-                ${todayList.map(a => `
-                <div class="today-chip" onclick="openDeepDetail('${a.user}','${a.id}')">
-                    <span class="today-chip-name">${a.user}</span>
-                    <span class="score-pill ${scoreClass(parseFloat(a.score))}">${a.score}%</span>
-                </div>`).join('')}
-            </div>`;
+                    <div class="sec-label"><span class="live-dot"></span> Aaj Active</div>
+                    <div class="today-scroll">
+                        ${todayList.map(a=>`
+                        <div class="today-chip" onclick="openDeepDetail('${a.user.replace(/'/g,"\\'")}','${a.id}')">
+                            <span class="today-chip-name">${a.user}</span>
+                            <span class="score-pill ${scoreClass(parseFloat(a.score))}">${a.score}%</span>
+                        </div>`).join('')}
+                    </div>`;
             } else {
                 ts.innerHTML = '';
             }
@@ -1718,25 +863,24 @@
                 list.innerHTML = `<div class="empty-state"><span class="empty-icon">🔍</span><div class="empty-text">Koi student nahi mila</div></div>`;
                 return;
             }
-            list.innerHTML = names.map((n, i) => {
+            list.innerHTML = names.map((n,i) => {
                 const attempts = dataMap[n].length;
-                const scores = dataMap[n].map(a => parseFloat(a.score)).filter(x => !isNaN(x));
-                const avg = scores.length ? Math.round(scores.reduce((s, v) => s + v, 0) / scores.length) : 0;
+                const scores = dataMap[n].map(a=>parseFloat(a.score)).filter(x=>!isNaN(x));
+                const avg = scores.length ? Math.round(scores.reduce((s,v)=>s+v,0)/scores.length) : 0;
                 const sc = scoreClass(avg);
                 return `
-            <div class="student-item" onclick="openHistory('${n}')">
-                <span class="s-rank">${i+1}</span>
-                <div class="avatar ${avClass(n)}">${n.charAt(0).toUpperCase()}</div>
-                <div class="s-info">
-                    <span class="s-name">${n}</span>
-                    <span class="s-meta">${attempts} attempt${attempts>1?'s':''} &bull; avg <span class="score-pill ${sc}" style="padding:2px 8px;font-size:10px;">${avg}%</span></span>
-                </div>
-                <i class="fa-solid fa-chevron-right s-arrow"></i>
-            </div>`;
+                <div class="student-item" onclick="openHistory('${n.replace(/'/g,"\\'")}')">
+                    <span class="s-rank">${i+1}</span>
+                    <div class="avatar ${avClass(n)}">${n.charAt(0).toUpperCase()}</div>
+                    <div class="s-info">
+                        <span class="s-name">${n}</span>
+                        <span class="s-meta">${attempts} attempt${attempts>1?'s':''} &bull; avg <span class="score-pill ${sc}" style="padding:2px 8px;font-size:10px;">${avg}%</span></span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right s-arrow"></i>
+                </div>`;
             }).join('');
         }
 
-        /* ══ RENDER CHAPTERS ══ */
         function renderChapters(chapters) {
             document.getElementById('chapterCountChip').textContent = chapters.length;
             const list = document.getElementById('chapterList');
@@ -1746,39 +890,38 @@
             }
             list.innerHTML = chapters.map(ch => {
                 const attempts = chapterMap[ch];
-                // unique students only
-                const uniqueStudents = [...new Set(attempts.map(a => a.user))].sort();
-                const scores = attempts.map(a => parseFloat(a.score)).filter(x => !isNaN(x));
-                const avg = scores.length ? Math.round(scores.reduce((s, v) => s + v, 0) / scores.length) : 0;
+                const uniqueStudents = [...new Set(attempts.map(a=>a.user))].sort();
+                const scores = attempts.map(a=>parseFloat(a.score)).filter(x=>!isNaN(x));
+                const avg = scores.length ? Math.round(scores.reduce((s,v)=>s+v,0)/scores.length) : 0;
 
                 const studentRows = uniqueStudents.map(sname => {
-                    const sAttempts = attempts.filter(a => a.user === sname);
-                    const sScores = sAttempts.map(a => parseFloat(a.score)).filter(x => !isNaN(x));
-                    const sAvg = sScores.length ? Math.round(sScores.reduce((s, v) => s + v, 0) / sScores.length) : 0;
+                    const sAttempts = attempts.filter(a=>a.user===sname);
+                    const sScores = sAttempts.map(a=>parseFloat(a.score)).filter(x=>!isNaN(x));
+                    const sAvg = sScores.length ? Math.round(sScores.reduce((s,v)=>s+v,0)/sScores.length) : 0;
                     return `
-                <div class="ch-student-row" onclick="openChapterStudentHistory('${sname.replace(/'/g,"\\'")}','${ch.replace(/'/g,"\\'")}')">
-                    <div class="ch-av ${avClass(sname)}">${sname.charAt(0).toUpperCase()}</div>
-                    <div style="flex:1;min-width:0;">
-                        <div class="ch-sname">${sname}</div>
-                        <span class="ch-smeta">${sAttempts.length} attempt${sAttempts.length>1?'s':''}</span>
-                    </div>
-                    <span class="score-pill ${scoreClass(sAvg)}" style="font-size:11px;">${sAvg}%</span>
-                    <i class="fa-solid fa-chevron-right s-arrow" style="font-size:11px;margin-left:6px;"></i>
-                </div>`;
+                    <div class="ch-student-row" onclick="openChapterStudentHistory('${sname.replace(/'/g,"\\'")}','${ch.replace(/'/g,"\\'")}')">
+                        <div class="ch-av ${avClass(sname)}">${sname.charAt(0).toUpperCase()}</div>
+                        <div style="flex:1;min-width:0;">
+                            <div class="ch-sname">${sname}</div>
+                            <span class="ch-smeta">${sAttempts.length} attempt${sAttempts.length>1?'s':''}</span>
+                        </div>
+                        <span class="score-pill ${scoreClass(sAvg)}" style="font-size:11px;">${sAvg}%</span>
+                        <i class="fa-solid fa-chevron-right s-arrow" style="font-size:11px;margin-left:6px;"></i>
+                    </div>`;
                 }).join('');
 
                 return `
-            <div class="chapter-card">
-                <div class="chapter-header" onclick="toggleChapter(this)">
-                    <div class="ch-icon ${chiClass(ch)}"><i class="fa-solid fa-book"></i></div>
-                    <div class="ch-info">
-                        <span class="ch-name">${ch}</span>
-                        <span class="ch-meta">${uniqueStudents.length} student${uniqueStudents.length>1?'s':''} &bull; ${attempts.length} attempt${attempts.length>1?'s':''} &bull; avg ${avg}%</span>
+                <div class="chapter-card">
+                    <div class="chapter-header" onclick="toggleChapter(this)">
+                        <div class="ch-icon ${chiClass(ch)}"><i class="fa-solid fa-book"></i></div>
+                        <div class="ch-info">
+                            <span class="ch-name">${ch}</span>
+                            <span class="ch-meta">${uniqueStudents.length} student${uniqueStudents.length>1?'s':''} &bull; ${attempts.length} attempt${attempts.length>1?'s':''} &bull; avg ${avg}%</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right ch-toggle"></i>
                     </div>
-                    <i class="fa-solid fa-chevron-right ch-toggle"></i>
-                </div>
-                <div class="chapter-students">${studentRows}</div>
-            </div>`;
+                    <div class="chapter-students">${studentRows}</div>
+                </div>`;
             }).join('');
         }
 
@@ -1790,35 +933,28 @@
             icon.classList.toggle('open', !isOpen);
         }
 
-        /* ══ CHAPTER → student's attempts in that chapter ══ */
         function openChapterStudentHistory(name, chapter) {
-            const logs = (chapterMap[chapter] || []).filter(a => a.user === name).slice().reverse();
+            const logs = (chapterMap[chapter]||[]).filter(a=>a.user===name).slice().reverse();
             const html = logs.map(l => {
                 const sc = parseFloat(l.score);
                 return `
-            <div class="hist-card" onclick="openDeepDetailFromChapter('${name.replace(/'/g,"\\'")}','${l.id}','${chapter.replace(/'/g,"\\'")}')">
-                <div class="h-icon"><i class="fa-solid fa-file-alt"></i></div>
-                <div class="h-info">
-                    <span class="h-chapter">${l.chapter || 'Unknown Chapter'}</span>
-                    <span class="h-ts">${l.timestamp || ''}</span>
-                </div>
-                <span class="score-pill ${scoreClass(sc)}">${l.score}%</span>
-                <i class="fa-solid fa-chevron-right s-arrow" style="font-size:12px;"></i>
-            </div>`;
+                <div class="hist-card" onclick="openDeepDetailFromChapter('${name.replace(/'/g,"\\'")}','${l.id}','${chapter.replace(/'/g,"\\'")}')">
+                    <div class="h-icon"><i class="fa-solid fa-file-alt"></i></div>
+                    <div class="h-info">
+                        <span class="h-chapter">${l.chapter||'Unknown Chapter'}</span>
+                        <span class="h-ts">${l.timestamp||''}</span>
+                    </div>
+                    <span class="score-pill ${scoreClass(sc)}">${l.score}%</span>
+                    <i class="fa-solid fa-chevron-right s-arrow" style="font-size:12px;"></i>
+                </div>`;
             }).join('');
-            openModal(
-                name,
-                html || `<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-text">Koi attempt nahi</div></div>`,
-                closeModal
-            );
+            openModal(name, html||`<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-text">Koi attempt nahi</div></div>`, closeModal);
         }
 
-        /* deep detail called from chapter flow — back goes to chapter student history */
         function openDeepDetailFromChapter(name, id, chapter) {
             _openDeepDetail(name, id, () => openChapterStudentHistory(name, chapter));
         }
 
-        /* ══ MODAL ══ */
         function openModal(title, html, onBack) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalBody').innerHTML = html;
@@ -1831,9 +967,8 @@
             document.getElementById('viewModal').className = 'modal';
         }
 
-        /* ══ HISTORY LIST (student view) ══ */
         function openHistory(name) {
-            const logs = [...(dataMap[name] || [])].reverse();
+            const logs = [...(dataMap[name]||[])].reverse();
             if (!logs.length) {
                 openModal(name, `<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-text">Koi attempt nahi</div></div>`, closeModal);
                 return;
@@ -1841,25 +976,23 @@
             const html = logs.map(l => {
                 const sc = parseFloat(l.score);
                 return `
-            <div class="hist-card" onclick="openDeepDetail('${name.replace(/'/g,"\\'")}','${l.id}')">
-                <div class="h-icon"><i class="fa-solid fa-file-alt"></i></div>
-                <div class="h-info">
-                    <span class="h-chapter">${l.chapter || 'Unknown Chapter'}</span>
-                    <span class="h-ts">${l.timestamp || ''}</span>
-                </div>
-                <span class="score-pill ${scoreClass(sc)}">${l.score}%</span>
-                <i class="fa-solid fa-chevron-right s-arrow" style="font-size:12px;"></i>
-            </div>`;
+                <div class="hist-card" onclick="openDeepDetail('${name.replace(/'/g,"\\'")}','${l.id}')">
+                    <div class="h-icon"><i class="fa-solid fa-file-alt"></i></div>
+                    <div class="h-info">
+                        <span class="h-chapter">${l.chapter||'Unknown Chapter'}</span>
+                        <span class="h-ts">${l.timestamp||''}</span>
+                    </div>
+                    <span class="score-pill ${scoreClass(sc)}">${l.score}%</span>
+                    <i class="fa-solid fa-chevron-right s-arrow" style="font-size:12px;"></i>
+                </div>`;
             }).join('');
             openModal(name, html, closeModal);
         }
 
-        /* ══ DEEP DETAIL (student flow — back to history) ══ */
         function openDeepDetail(name, id) {
             _openDeepDetail(name, id, () => openHistory(name));
         }
 
-        /* ══ CORE DEEP DETAIL ══ */
         function _openDeepDetail(name, id, backFn) {
             const test = allAttempts.find(x => x.id === id);
             if (!test) return;
@@ -1867,55 +1000,55 @@
             let responses = test.responses || [];
             if (!Array.isArray(responses)) responses = Object.values(responses);
 
-            const total = responses.length;
-            const right = responses.filter(r => r && r.status === 'correct').length;
-            const skipped = responses.filter(r => r && (!r.selectedOption || r.selectedOption === 'Skipped')).length;
-            const wrong = total - right - skipped;
+            const total   = responses.length;
+            const right   = responses.filter(r => r && r.status==='correct').length;
+            const skipped = responses.filter(r => r && (!r.selectedOption || r.selectedOption==='Skipped')).length;
+            const wrong   = total - right - skipped;
             const sc = parseFloat(test.score);
-            const scoreGrade = sc >= 70 ? 'good' : sc >= 40 ? 'mid' : 'poor';
+            const scoreGrade = sc>=70 ? 'good' : sc>=40 ? 'mid' : 'poor';
 
-            const qCards = responses.map((r, i) => {
+            const qCards = responses.map((r,i) => {
                 if (!r) return '';
-                const isSkipped = !r.selectedOption || r.selectedOption === 'Skipped';
-                const isCorrect = r.status === 'correct';
+                const isSkipped = !r.selectedOption || r.selectedOption==='Skipped';
+                const isCorrect = r.status==='correct';
                 const type = isSkipped ? 'skipped' : (isCorrect ? 'correct' : 'wrong');
                 const imgHtml = r.img ? `<img src="${r.img}" class="q-img" onerror="this.style.display='none'">` : '';
                 return `
-            <div class="q-card q-box" data-type="${type}">
-                <span class="q-num">Q${i+1} &nbsp;·&nbsp; ${type.toUpperCase()}</span>
-                ${imgHtml}
-                <div class="q-text">${r.question || ''}</div>
-                <div class="ans-row">
-                    <div class="ans-item ${isCorrect ? 'ans-correct' : (isSkipped ? 'ans-student' : 'ans-wrong')}">
-                        <i class="fa-solid ${isCorrect ? 'fa-check' : (isSkipped ? 'fa-minus' : 'fa-xmark')}"></i>
-                        ${r.selectedOption || 'Skipped'}
+                <div class="q-card q-box" data-type="${type}">
+                    <span class="q-num">Q${i+1} &nbsp;·&nbsp; ${type.toUpperCase()}</span>
+                    ${imgHtml}
+                    <div class="q-text">${r.question||''}</div>
+                    <div class="ans-row">
+                        <div class="ans-item ${isCorrect?'ans-correct':(isSkipped?'ans-student':'ans-wrong')}">
+                            <i class="fa-solid ${isCorrect?'fa-check':(isSkipped?'fa-minus':'fa-xmark')}"></i>
+                            ${r.selectedOption||'Skipped'}
+                        </div>
+                        ${!isCorrect ? `
+                        <div class="ans-item ans-correct">
+                            <i class="fa-solid fa-check"></i> ${r.correctOption||''}
+                        </div>` : ''}
                     </div>
-                    ${!isCorrect ? `
-                    <div class="ans-item ans-correct">
-                        <i class="fa-solid fa-check"></i> ${r.correctOption || ''}
-                    </div>` : ''}
-                </div>
-            </div>`;
+                </div>`;
             }).join('');
 
             const html = `
-        <div class="result-hero">
-            <div class="big-score ${scoreGrade}">${test.score}%</div>
-            <div class="hero-name">${name}</div>
-            <div class="hero-meta">${test.chapter || ''} &bull; ${test.timestamp || ''}</div>
-        </div>
-        <div class="pills-row">
-            <div class="pill"><span class="pill-num" style="color:var(--g)">${right}</span><span class="pill-lbl">Sahi</span></div>
-            <div class="pill"><span class="pill-num" style="color:var(--danger)">${wrong}</span><span class="pill-lbl">Galat</span></div>
-            <div class="pill"><span class="pill-num" style="color:var(--warn)">${skipped}</span><span class="pill-lbl">Skip</span></div>
-        </div>
-        <div class="filter-strip">
-            <div class="ftab active" onclick="filterQ('all',this)">Sab <span class="num">${total}</span></div>
-            <div class="ftab" onclick="filterQ('correct',this)">✅ Sahi <span class="num">${right}</span></div>
-            <div class="ftab" onclick="filterQ('wrong',this)">❌ Galat <span class="num">${wrong}</span></div>
-            <div class="ftab" onclick="filterQ('skipped',this)">⏭ Skip <span class="num">${skipped}</span></div>
-        </div>
-        <div id="qContainer">${qCards}</div>`;
+            <div class="result-hero">
+                <div class="big-score ${scoreGrade}">${test.score}%</div>
+                <div class="hero-name">${name}</div>
+                <div class="hero-meta">${test.chapter||''} &bull; ${test.timestamp||''}</div>
+            </div>
+            <div class="pills-row">
+                <div class="pill"><span class="pill-num" style="color:var(--g)">${right}</span><span class="pill-lbl">Sahi</span></div>
+                <div class="pill"><span class="pill-num" style="color:var(--danger)">${wrong}</span><span class="pill-lbl">Galat</span></div>
+                <div class="pill"><span class="pill-num" style="color:var(--warn)">${skipped}</span><span class="pill-lbl">Skip</span></div>
+            </div>
+            <div class="filter-strip">
+                <div class="ftab active" onclick="filterQ('all',this)">Sab <span class="num">${total}</span></div>
+                <div class="ftab" onclick="filterQ('correct',this)">✅ Sahi <span class="num">${right}</span></div>
+                <div class="ftab" onclick="filterQ('wrong',this)">❌ Galat <span class="num">${wrong}</span></div>
+                <div class="ftab" onclick="filterQ('skipped',this)">⏭ Skip <span class="num">${skipped}</span></div>
+            </div>
+            <div id="qContainer">${qCards}</div>`;
 
             openModal(name, html, backFn);
         }
@@ -1924,10 +1057,14 @@
             document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
             document.querySelectorAll('.q-box').forEach(box => {
-                box.style.display = (type === 'all' || box.dataset.type === type) ? 'block' : 'none';
+                box.style.display = (type==='all' || box.dataset.type===type) ? 'block' : 'none';
             });
+        }
+
+        function smartBack() {
+            if (window.history.length > 1) window.history.back();
+            else window.location.href = 'index.html';
         }
     </script>
 </body>
-
-    </html>
+</html>
